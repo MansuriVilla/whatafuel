@@ -146,6 +146,7 @@ Youth Section Styles
 /*------------------------------
     Image Only Styles
 -----------------------*/
+.image_section-inner { padding:100px 0px ; }
 .image_section-inner img { height: 100vh; object-fit: cover; }
 /*------------------------------
     Journal Styles
@@ -170,3 +171,4 @@ Youth Section Styles
 .footer_nav-link { color: var(--primary-color); transition: color 0.2s linear; }
 .footer_nav-link:hover { color: var(--secondary-color); }
 .footer_col { flex: 50%; }
+.footer_inner .site_container-full.site_flex { row-gap: 200px; }
