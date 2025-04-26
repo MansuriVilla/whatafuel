@@ -166,9 +166,12 @@ Youth Section Styles
 .footer_nav-links { row-gap: 8px; }
 .footer_bottom-inner { justify-content: space-between; align-items: flex-end; }
 .footer_logo { max-width: 170px; margin: 0 auto; }
-.footer_bottom-col { flex: 1; text-align: center; }
+.footer_bottom-col { flex: 1; text-align: left; }
 .footer_right .footer_right-inner { gap: 180px; max-width: 380px; margin: 0 auto; }
 .footer_nav-link { color: var(--primary-color); transition: color 0.2s linear; }
 .footer_nav-link:hover { color: var(--secondary-color); }
 .footer_col { flex: 50%; }
 .footer_inner .site_container-full.site_flex { row-gap: 200px; }
+.footer_bottom-col.footer_bottom-right {
+    text-align: right;
+  }
