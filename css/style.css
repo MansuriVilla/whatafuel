@@ -36,7 +36,7 @@ h6 { font-size: clamp(12px, 1.5vw, 18px); }
 .primary_cta-outline { background-color: transparent; }
 .primary_cta { backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px); transition: color 0.4s, background-color 0.4s; background-color: var(--light-black-color); border-radius: 4px; padding: 20px 30px; display: inline-flex; text-transform: uppercase; }
 .primary_cta:hover { background-color: #0003; color: var(--secondary-color); }
-.site_container-full { max-width: calc(1960px - 6%); width: 100%; margin: 0 auto; }
+.site_container-full { max-width: min(95%, 1820px); width: 100%; margin: 0 auto;}
 .site_flex { display: flex; }
 .site_flex--column { flex-direction: column; }
 .site_flex-row { flex-direction: row; }
@@ -97,11 +97,15 @@ a.cta:hover { background-color: #d8d8d8c9; color: var(--secondary-color); }
 -----------------------*/
 .hero_section { position: sticky; top: 0; width: 100%; height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; color: var(--white-color); }
 .hero_section_inner { width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; }
-.hero_section_background { position: absolute; height: 100%; width: 100%; left: 0; top: 0; z-index: -1; }
+.hero_section_background { position: absolute; height: 100%; width: 100%; left: 0; top: 0; z-index: -1;  min-height: 100vh;}
 .hero_section_content { color: var(--white-color); display: flex; flex-direction: column; justify-content: center; align-items: center; row-gap: 50px; }
 .hero_content-top { text-align: center; display: flex; flex-direction: column; row-gap: 20px; }
 .hero_section-bottom { display: flex; justify-content: center; align-items: center; gap: 20px; }
 .hero_section-bottom a { color: var(--white-color); }
+video.hero_background {
+    height: 100%;
+    object-fit: cover;
+}
 /*------------------------------
     Main Styles
 -----------------------*/
@@ -147,7 +151,12 @@ Youth Section Styles
 /*------------------------------
     Journal Styles
 -----------------------*/
-.journal_bottom .swiper { width: 100%; height: 100%; overflow: inherit; }
+/* .journal_bottom .swiper { max-width: 95vw; height: 100%; overflow: inherit; } */
+.journal_bottom .swiper {
+    max-width: 100%;
+    height: 100%;
+    padding-left: 50px;
+}
 .swiper-slide { font-size: 18px; background: #fff; display: flex; justify-content: center; align-items: center; }
 .swiper-slide img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .journal_item-inner { row-gap: 20px; }
@@ -161,8 +170,8 @@ Youth Section Styles
     Globally Styles
 -----------------------*/
 
-.siteVelocity__slider--Container { width: 100%; height: 100%; overflow: hidden; flex-direction: column; display: flex; justify-content: center; align-items: center; row-gap: clamp(20px, 5vw, 50px); position: relative; padding: clamp(20px, 5vw, 40px) 0; }
-.siteVelocity__slider { display: flex; align-items: center; gap: clamp(25px, 4vw, 70px); white-space: nowrap; will-change: transform; }
+.siteVelocity__slider--Container { width: 100vw; height: 100%; overflow: hidden; flex-direction: column; display: flex; justify-content: center; align-items: center; row-gap: clamp(20px, 5vw, 50px); position: relative; padding: clamp(20px, 5vw, 40px) 0; }
+.siteVelocity__slider { display: flex; align-items: center; justify-content: center; gap: clamp(25px, 4vw, 70px); white-space: nowrap; will-change: transform; }
 .siteVelocity__slider .siteVelocity__sliderImage { object-fit: contain; max-height: clamp(60px, 24vw, 189px); object-position: center bottom; opacity: 0.5; max-width: 100%;
     width: auto; }
 
