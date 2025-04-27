@@ -2,7 +2,7 @@
     .header .menu-toggle, .off-canvas-menu { display: block; }
     .off-canvas-menu { opacity: 0; pointer-events: none; }
     .header.menu-active .off-canvas-menu { opacity: 1; pointer-events: all; }
-    .off-canvas-menu ul { text-align: left; padding: 0; border-top: 1px solid #000; margin-top: 15vh; }
+    .off-canvas-menu ul { text-align: left; padding: 0; border-top: 1px solid #000; margin-top: 15vh; margin-bottom: 50px; }
     .off-canvas-menu { position: fixed; top: 0; width: 100%; background: var(--white-color); height: 100%; min-height: 100vh; transition: all 0.2s linear; }
     .header_nav_links { padding: 18px 0; display: flex; width: 100%; border-bottom: 1px solid #000; }
     .menu-toggle { font-size: 26px; color: var(--white-color); }
