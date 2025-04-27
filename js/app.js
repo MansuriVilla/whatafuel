@@ -9,7 +9,7 @@ lenis.on("scroll", (e) => {});
 document.addEventListener("DOMContentLoaded", () => {
   function offcanvsMenu() {
     const menuToggle = document.querySelector(".menu-toggle");
-    const offCanvasMenu = document.querySelector(".off-canvas-menu");
+    const offCanvasMenu = document.querySelector(".off-canvas-menu-inner");
     const menu = document.querySelector(".menu");
     const ctaMain = document.querySelector(".cta_main");
     const menuClose = document.querySelector(".menu-close");
@@ -233,15 +233,15 @@ var swiper = new Swiper(".journal_slider", {
   breakpoints: {
     320: {
       slidesPerView: 1.5,
-      spaceBetween: 10,
+      spaceBetween: 20,
     },
     768: {
       slidesPerView: 2.5,
-      spaceBetween: 20,
+      spaceBetween: 30,
     },
     1440: {
       slidesPerView: 3.5,
-      spaceBetween: 30,
+      spaceBetween: 50,
     },
   },
 });

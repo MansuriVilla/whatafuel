@@ -43,7 +43,7 @@ h6 { font-size: clamp(12px, 1.5vw, 18px); }
 .site_flex-odd .flex_item:nth-child(odd) { flex-direction: row-reverse; }
 .site_flex-even .flex_item:nth-child(even) { flex-direction: row-reverse; }
 .site_grid { display: grid; }
-.grid_col-2 { grid-template-columns: repeat(2, 1fr); }
+.grid_col-2 { grid-template-columns: repeat(auto-fit, minmax(clamp(350px, 30vw, 570px), 1fr)); }
 .grid_col-3 { grid-template-columns: repeat(3, 1fr); }
 .grid_col-4 { grid-template-columns: repeat(4, 1fr); }
 .grid_col-5 { grid-template-columns: repeat(5, 1fr); }
@@ -75,20 +75,16 @@ input,button{border: 0; background-color: transparent;}
 .header.header--fixed .has_active--effect::after{ background-color: var(--primary-color); }
 .header .menu-toggle,
 .off-canvas-menu { display: none; }
-.off-canvas-menu ul { margin: 0; padding: 0; list-style: none; flex-grow: 1; text-align: center; }
-.off-canvas-menu ul li { transform: translateY(20%); visibility: hidden; opacity: 0; transition: 0.5s linear all; transition-delay: 10ms; }
-.off-canvas-menu.active ul li { transform: translateY(0%); visibility: visible; opacity: 1; }
-.off-canvas-menu ul li { padding: 15px; }
-.off-canvas-menu .cta_main { padding: 15px; background-color: #444; }
+.off-canvas-menu ul { margin: 0; padding: 0; list-style: none; flex-grow: 1; text-align: center; padding: 15px; transform: translateY(20%); visibility: hidden; opacity: 0; transition: 0.5s linear all; transition-delay: 10ms; }
+.off-canvas-menu-inner.active ul { transform: translateY(0%); visibility: visible; opacity: 1; }
 .off-canvas-menu .cta { color: var(--white-color); text-decoration: none; font-weight: bold; }
-.off-canvas-menu.active { transform: translateY(0%); }
-.menu-close { background: none; border: none; font-size: 2em; color: var(--white-color); cursor: pointer; }
+.menu-close { background: none; border: none; font-size: 2em; color: var(--primary-color); cursor: pointer; }
 a.cta { background: var(--light-black-color); color: var(--white-color); border-radius: 4px; padding: clamp(10px, 1.4vw, 17px) clamp(15px, 1.8vw, 23px); display: flex; justify-content: center; align-items: center; transition: all 0.5s linear; backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px); }
 .header.header--fixed a.cta { color: var(--primary-color); }
 a.cta:hover { background-color: #d8d8d8c9; color: var(--secondary-color); }
 .cta span { display: flex; }
 .cta span img { margin-left: 15px; }
-.header_brand_logo a { max-width: 300px; width: 100%; }
+
 .header--hidden { transform: translateY(-100%); }
 .header--fixed { background: var(--white-color); }
 .header--fixed .header_navigations_links ul li a { color: var(--primary-color); }
@@ -120,7 +116,7 @@ Youth Section Styles
 /*------------------------------
     Introducing Styles
 -----------------------*/
-.section_top { padding: 160px 0 80px; }
+.section_top { padding: clamp(50px, 8vw, 160px) 0 clamp(30px, 4vw, 80px); }
 .sticky_content { position: sticky; top: 0; padding-top: 10rem; }
 .introducing_bottom-right { display: flex; justify-content: center; }
 .introducing_product-image { max-width: 500px; width: 100%; }
@@ -128,7 +124,7 @@ Youth Section Styles
 /*------------------------------
     Miracle Styles
 -----------------------*/
-.miracle_bottom .site_grid { gap: 60px; }
+.miracle_bottom .site_grid { gap: clamp(20px, 4vw, 60px); }
 .miracle_item { border-top: 1px solid #00000014; }
 .miracle_item-inner { display: flex; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 20px; padding: 20px 0; }
 /*------------------------------
@@ -146,7 +142,7 @@ Youth Section Styles
 /*------------------------------
     Image Only Styles
 -----------------------*/
-.image_section-inner { padding:100px 0px ; }
+.image_section-inner { padding:clamp(50px, 8vw, 100px) 0px ; }
 .image_section-inner img { height: 100vh; object-fit: cover; }
 /*------------------------------
     Journal Styles
@@ -190,7 +186,7 @@ Youth Section Styles
 .footer_nav-link { color: var(--primary-color); transition: color 0.2s linear;  text-transform: uppercase;}
 .footer_nav-link:hover { color: var(--secondary-color); }
 .footer_col { flex: 50%; }
-.footer_inner .site_container-full.site_flex { row-gap: 200px; }
+.footer_inner .site_container-full.site_flex { row-gap: clamp(80px, 30vw, 200px); }
 .footer_bottom-col.footer_bottom-right { text-align: right; }
 .footer_input{padding: 20px 10px;
     border: 1px solid #000;
