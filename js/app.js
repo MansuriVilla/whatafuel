@@ -126,10 +126,108 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
   customParallax();
+
+  function velocitySlider() {
+    const sliders = document.querySelectorAll(".siteVelocity__slider");
+    const baseSpeed = 0.5; // Base speed for control
+
+    sliders.forEach((slider) => {
+        let images = Array.from(slider.children);
+        let imgWidth, totalWidth;
+        let isScrolling = false;
+
+        // Calculate widths
+        function updateWidths() {
+            imgWidth = images[0].offsetWidth + 20;
+            totalWidth = imgWidth * images.length;
+        }
+
+        updateWidths();
+
+        // Clone images for seamless loop
+        while (slider.scrollWidth < window.innerWidth * 2) {
+            images.forEach((img) => slider.appendChild(img.cloneNode(true)));
+            images = Array.from(slider.children);
+            updateWidths();
+        }
+
+        let position = 0;
+        let extraSpeed = 0;
+        let direction = 1; // 1 for right, -1 for left
+        let speed = baseSpeed;
+
+        function animate() {
+            speed = (baseSpeed + extraSpeed) * direction;
+            position += speed;
+
+            // Seamless wrapping
+            if (Math.abs(position) >= totalWidth) {
+                position = position % totalWidth;
+            }
+
+            slider.style.transform = `translateX(${-position}px)`;
+
+            // Gradual speed decay when not scrolling
+            if (!isScrolling) {
+                extraSpeed *= 0.95;
+                if (Math.abs(extraSpeed) < 0.01) extraSpeed = 0;
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        // Throttle wheel events
+        function throttle(fn, wait) {
+            let lastTime = 0;
+            return function (...args) {
+                const now = performance.now();
+                if (now - lastTime >= wait) {
+                    fn.apply(this, args);
+                    lastTime = now;
+                }
+            };
+        }
+
+        // Scroll handling
+        window.addEventListener(
+            "wheel",
+            throttle((event) => {
+                isScrolling = true;
+                let delta = event.deltaY || -event.wheelDelta;
+
+                // Determine direction based on scroll
+                direction = delta > 0 ? -1 : 1; // Down scroll: left, Up scroll: right
+
+                // Increase speed based on scroll intensity
+                let acceleration = Math.min(Math.abs(delta) * 0.02, 2); // Increased multiplier and cap
+                extraSpeed = Math.min(extraSpeed + acceleration, 12); // Higher max speed cap
+
+                // Reset scrolling flag after a short delay
+                setTimeout(() => {
+                    isScrolling = false;
+                }, 150);
+            }, 50)
+        );
+
+        // Recalculate on resize
+        window.addEventListener("resize", () => {
+            images = Array.from(slider.children);
+            updateWidths();
+            position = position % totalWidth;
+        });
+
+        // Optimize rendering
+        slider.style.willChange = "transform";
+        slider.style.transition = "none";
+
+        animate();
+    });
+}
+
+velocitySlider();
 });
 
 var swiper = new Swiper(".journal_slider", {
   slidesPerView: 3.5,
   spaceBetween: 30,
-  centeredSlides: true,
 });

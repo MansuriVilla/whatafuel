@@ -49,13 +49,11 @@ h6 { font-size: clamp(12px, 1.5vw, 18px); }
 .grid_col-5 { grid-template-columns: repeat(5, 1fr); }
 .grid_col-6 { grid-template-columns: repeat(6, 1fr); }
 .w-100 { width: 100%; }
+input,button{border: 0; background-color: transparent;}
 /*------------------------------
     Header Styles
 -----------------------*/
-.header { position: fixed; top: 0; width: 100%; background-color: transparent; padding: 15px 0; backdrop-filter: blur(0px); transition: color 0.7s cubic-bezier(0.77, 0, 0.175, 1),
-    background-color 0.7s cubic-bezier(0.77, 0, 0.175, 1),
-    opacity 0.7s cubic-bezier(0.77, 0, 0.175, 1),
-    transform 0.7s cubic-bezier(0.77, 0, 0.175, 1); z-index: 1000; display: flex; justify-content: center; transform-origin: center center; }
+.header { position: fixed; top: 0; width: 100%; background-color: transparent; padding: 15px 0; backdrop-filter: blur(0px); transition: color 0.7s cubic-bezier(0.77, 0, 0.175, 1), background-color 0.7s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.7s cubic-bezier(0.77, 0, 0.175, 1), transform 0.7s cubic-bezier(0.77, 0, 0.175, 1); z-index: 1000; display: flex; justify-content: center; transform-origin: center center; }
 .header .header_inner { width: 100%; padding: 0 15px; display: flex; justify-content: center; align-items: center; }
 .header_nav--dark a:not(.cta) { color: var(--white-color); -webkit-text-stroke: 0.5px var(--primary-color); }
 .header.header_nav--dark a.cta { border: 2px solid var(--white-color); background: transparent; transition: background 0.3s linear; }
@@ -68,15 +66,13 @@ h6 { font-size: clamp(12px, 1.5vw, 18px); }
 .site_navigation--item { flex: 1 1 100%; }
 .header .header_inner .header_content .header_navigations_links .cta_main { display: flex; align-items: center; gap: 10px; justify-content: flex-end; }
 .header_navigations_links ul { display: flex; align-items: center; transition: 0.5s all linear; transform-origin: center center; order: -1; }
-.header_navigations_links ul li a { width: fit-content; margin: 0 auto; padding: 0 15px; font-size: 18px; color: var(--white-color); transition: color 0.7s cubic-bezier(0.77, 0, 0.175, 1),
-    background-color 0.7s cubic-bezier(0.77, 0, 0.175, 1),
-    opacity 0.7s cubic-bezier(0.77, 0, 0.175, 1),
-    transform 0.7s cubic-bezier(0.77, 0, 0.175, 1); }
+.header_navigations_links ul li a { width: fit-content; margin: 0 auto; padding: 0 15px; font-size: 18px; color: var(--white-color); transition: color 0.7s cubic-bezier(0.77, 0, 0.175, 1), background-color 0.7s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.7s cubic-bezier(0.77, 0, 0.175, 1), transform 0.7s cubic-bezier(0.77, 0, 0.175, 1); }
 .has_active--effect { position: relative; }
 .has_active--effect.isActive::after,
 .has_active--effect:hover::after { transform-origin: left; transform: scaleX(1); }
 .has_active--effect::after { content: ""; position: absolute; width: 100%; height: 1px; background-color: var(--primary-color); border-radius: 40px; transform: scaleX(0); left: 0px; bottom: -2px; transform-origin: right; transition: transform 0.5s ease; }
-.header_nav--dark .has_active--effect::after { background-color: #000; }
+.header .has_active--effect::after{ background-color: var(--white-color); }
+.header.header--fixed .has_active--effect::after{ background-color: var(--primary-color); }
 .header .menu-toggle,
 .off-canvas-menu { display: none; }
 .off-canvas-menu ul { margin: 0; padding: 0; list-style: none; flex-grow: 1; text-align: center; }
@@ -158,6 +154,20 @@ Youth Section Styles
 .journal_item-content { row-gap: 20px; align-items: flex-start; justify-content: flex-start; }
 .journal_item-image { border-radius: 20px; overflow: hidden; }
 .journal_item-image img { aspect-ratio: 16/12; object-fit: cover; }
+
+
+
+/*------------------------------
+    Globally Styles
+-----------------------*/
+
+.siteVelocity__slider--Container { width: 100%; height: 100%; overflow: hidden; flex-direction: column; display: flex; justify-content: center; align-items: center; row-gap: clamp(20px, 5vw, 50px); position: relative; padding: clamp(20px, 5vw, 40px) 0; }
+.siteVelocity__slider { display: flex; align-items: center; gap: clamp(25px, 4vw, 70px); white-space: nowrap; will-change: transform; }
+.siteVelocity__slider .siteVelocity__sliderImage { object-fit: contain; max-height: clamp(60px, 24vw, 189px); object-position: center bottom; opacity: 0.5; max-width: 100%;
+    width: auto; }
+
+
+
 /*------------------------------
     Footer Styles
 -----------------------*/
@@ -168,10 +178,17 @@ Youth Section Styles
 .footer_logo { max-width: 170px; margin: 0 auto; }
 .footer_bottom-col { flex: 1; text-align: left; }
 .footer_right .footer_right-inner { gap: 180px; max-width: 380px; margin: 0 auto; }
-.footer_nav-link { color: var(--primary-color); transition: color 0.2s linear; }
+.footer_nav-link { color: var(--primary-color); transition: color 0.2s linear;  text-transform: uppercase;}
 .footer_nav-link:hover { color: var(--secondary-color); }
 .footer_col { flex: 50%; }
 .footer_inner .site_container-full.site_flex { row-gap: 200px; }
-.footer_bottom-col.footer_bottom-right {
-    text-align: right;
-  }
+.footer_bottom-col.footer_bottom-right { text-align: right; }
+.footer_input{padding: 20px 10px;
+    border: 1px solid #000;
+    border-radius: 4px;
+    width: 100%; max-width: 500px;}
+.footer_input-area{gap: 20px;}
+.footer_input-area.singup.site_flex {
+    flex-wrap: nowrap;
+    margin-top: 20px;
+}
