@@ -232,7 +232,7 @@ function animateBackgrounds() {
               start: "top 50%", // Start animation when top of section is 80% from top of viewport
               end: "bottom 30%", // End when bottom of section is 20% from top of viewport
               scrub: true, // Smoothly animate with scroll
-              markers: true, // Set to true for debugging
+              markers: false, // Set to true for debugging
           }
       });
 
