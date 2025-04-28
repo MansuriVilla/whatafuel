@@ -7,6 +7,7 @@ const lenis = new Lenis({
 lenis.on("scroll", (e) => {});
 
 document.addEventListener("DOMContentLoaded", () => {
+  gsap.registerPlugin(ScrollTrigger)
   function offcanvsMenu() {
     const t = document.querySelector(".menu-toggle"),
           m = document.querySelector(".off-canvas-menu-inner"),
@@ -217,6 +218,39 @@ document.addEventListener("DOMContentLoaded", () => {
 }
 
 velocitySlider();
+
+function animateBackgrounds() {
+  // Select all elements with the class
+  const sections = document.querySelectorAll(".change_background");
+
+  // Loop through each section to apply the animation
+  sections.forEach((section, index) => {
+      // Create a GSAP timeline for each section
+      const tl = gsap.timeline({
+          scrollTrigger: {
+              trigger: section,
+              start: "top 50%", // Start animation when top of section is 80% from top of viewport
+              end: "bottom 30%", // End when bottom of section is 20% from top of viewport
+              scrub: true, // Smoothly animate with scroll
+              markers: true, // Set to true for debugging
+          }
+      });
+
+      // Animation: Change background color from #FFF to #eff6ff and back
+      tl.to(section, {
+          backgroundColor: "#eff6ff",
+          duration: 1,
+          ease: "linear"
+      })
+      .to(section, {
+          backgroundColor: "#FFF",
+          duration: 1,
+          ease: "linear"
+      });
+  });
+}
+
+animateBackgrounds();
 });
 
 var swiper = new Swiper(".journal_slider", {
