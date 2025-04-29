@@ -5,7 +5,9 @@ const lenis = new Lenis({
 lenis.on("scroll", (e) => {});
 
 document.addEventListener("DOMContentLoaded", () => {
+
   gsap.registerPlugin(ScrollTrigger);
+  
   function offcanvsMenu() {
     const t = document.querySelector(".menu-toggle"),
       m = document.querySelector(".off-canvas-menu-inner"),
@@ -198,7 +200,6 @@ document.addEventListener("DOMContentLoaded", () => {
       animate();
     });
   }
-
   velocitySlider();
 
   function animateBackgrounds() {
@@ -226,7 +227,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
   }
-
   animateBackgrounds();
 
   var swiper = new Swiper(".journal_slider", {
