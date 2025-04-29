@@ -54,6 +54,7 @@ h6 { font-size: clamp(12px, 1.5vw, 18px); }
 .w-100 { width: 100%; }
 input,button{border: 0; background-color: transparent;}
 .cta_dark{color: var(--primary-color);}
+.change_background{will-change: background; background-color: rgb(255, 255, 255);}
 
 
 /*------------------------------
@@ -96,6 +97,7 @@ a.cta:hover { background-color: #d8d8d8c9; color: var(--secondary-color); }
 .header--hidden { transform: translateY(-100%); }
 .header--fixed { background: var(--white-color); }
 .header--fixed .header_navigations_links ul li a { color: var(--primary-color); }
+
 /*------------------------------
     Hero Section Styles
 -----------------------*/
@@ -110,7 +112,10 @@ video.hero_background {
     height: 100%;
     object-fit: cover;
 }
-.primary_cta-outline.has_active--effect::after:not(.cta_dark.has_active--effect::after){background-color: var(--white-color);}
+.primary_cta-outline.has_active--effect::after{background-color: var(--white-color);}
+.introducing_ctas .primary_cta-outline.has_active--effect::after {
+    background-color: var(--primary-color);
+  }
 /*------------------------------
     Main Styles
 -----------------------*/
@@ -210,7 +215,7 @@ Youth Section Styles
 .footer_nav-link { color: var(--primary-color); transition: color 0.2s linear;  text-transform: uppercase;}
 .footer_nav-link:hover { color: var(--secondary-color); }
 .footer_col { flex: 50%; }
-.footer_inner .site_container-full.site_flex { row-gap: clamp(80px, 30vw, 200px); }
+.footer_inner .site_container-full.site_flex { row-gap: clamp(80px, 30vw, 150px); }
 .footer_bottom-col.footer_bottom-right { text-align: center; }
 .footer_input{padding: 20px 10px;
     border: 1px solid #000;
