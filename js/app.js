@@ -217,7 +217,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       tl.to(section, {
-        backgroundColor: "rgb(239, 246, 255)",
+        backgroundColor: "rgb(249, 245, 237)",
         duration: 1,
         ease: "linear",
       }).to(section, {
