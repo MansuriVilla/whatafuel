@@ -116,7 +116,7 @@ a.cta:hover { background-color: #d8d8d8c9; color: var(--secondary-color); }
 video.hero_background { height: 100%; object-fit: cover; }
 .primary_cta-outline.has_active--effect::after { background-color: var(--white-color); }
 .introducing_ctas .primary_cta-outline.has_active--effect::after { background-color: var(--primary-color); }
-.hero_section_inner::after { content: ""; position: absolute; top: 0; left: 0; background: #00000060; height: 100%; width: 100%; z-index: -1; }
+/* .hero_section_inner::after { content: ""; position: absolute; top: 0; left: 0; background: #00000010; height: 100%; width: 100%; z-index: -1; } */
 /*------------------------------
     Main Styles
 -----------------------*/
