@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
       b = document.querySelector("body");
 
     const moveMenu = () => {
-      const w = window.innerWidth <= 768,
+      const w = window.innerWidth <= 820,
         l = document.querySelector(".header_navigations_links");
       if (w) {
         if (!m.contains(n)) m.appendChild(n);
