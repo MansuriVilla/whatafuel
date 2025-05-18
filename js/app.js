@@ -251,11 +251,11 @@ const SplittingTextConfig = {
   selector: "h1, h2, p, span",
   type: "words,lines",
   linesClass: "line",
-  duration: 0.8,
+  duration: 0.5,
   yPercent: 100,
   opacity: 0,
   stagger: 0.1,
-  ease: "cubic-bezier(0.25, 0.1, 0.25, 0.8)",
+  ease: "cubic-bezier(0.77, 0, 0.175, 1)",
   start: "top 95%",
 };
 
