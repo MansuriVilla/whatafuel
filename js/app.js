@@ -5,9 +5,8 @@ const lenis = new Lenis({
 lenis.on("scroll", (e) => {});
 
 document.addEventListener("DOMContentLoaded", () => {
-
   gsap.registerPlugin(ScrollTrigger);
-  
+
   function offcanvsMenu() {
     const t = document.querySelector(".menu-toggle"),
       m = document.querySelector(".off-canvas-menu-inner"),
@@ -109,7 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
     new simpleParallax(parallaxElements, {
       scale: 1.2,
       delay: 0.2,
-      transition: "cubic-bezier(0,0,0,1)",
+      transition: "cubic-bezier(0,0,0,02)",
       orientation: "up",
     });
   }
@@ -248,4 +247,56 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+const SplittingTextConfig = {
+  selector: "h1, h2, p, span",
+  type: "words,lines",
+  linesClass: "line",
+  duration: 0.8,
+  yPercent: 100,
+  opacity: 0,
+  stagger: 0.1,
+  ease: "cubic-bezier(0.25, 0.1, 0.25, 0.8)",
+  start: "top 95%",
+};
 
+document.fonts.ready.then(() => {
+  const elements = document.querySelectorAll(SplittingTextConfig.selector);
+
+  if (elements.length === 0) {
+    console.warn("No elements found for SplitText animation");
+    return;
+  }
+
+  elements.forEach((element) => {
+    element.style.opacity = "1";
+
+    const split = new SplitText(element, {
+      type: SplittingTextConfig.type,
+      linesClass: SplittingTextConfig.linesClass,
+    });
+
+    const animation = gsap.timeline({ paused: true });
+    split.lines.forEach((line, index) => {
+      const wordsInLine = line.querySelectorAll("div"); // Select word divs inside the line
+      animation.from(
+        wordsInLine,
+        {
+          duration: SplittingTextConfig.duration,
+          yPercent: SplittingTextConfig.yPercent,
+          opacity: SplittingTextConfig.opacity,
+          ease: SplittingTextConfig.ease,
+        },
+        index * SplittingTextConfig.stagger
+      );
+    });
+
+    ScrollTrigger.create({
+      trigger: element,
+      scroller: document.body,
+      start: SplittingTextConfig.start,
+      animation: animation,
+      toggleActions: "play none none reverse",
+      // markers: true,
+    });
+  });
+});
