@@ -228,6 +228,83 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   animateBackgrounds();
 
+  function textAnimation() {
+    const SplittingTextConfig = {
+      selector: "h1, h2, p, span",
+      type: "words,lines",
+      linesClass: "line",
+      duration: 0.5,
+      yPercent: 100,
+      opacity: 0,
+      stagger: 0.1,
+      ease: "cubic-bezier(0.77, 0, 0.175, 1)",
+      start: "top 95%",
+    };
+
+    document.fonts.ready.then(() => {
+      const elements = document.querySelectorAll(SplittingTextConfig.selector);
+
+      if (elements.length === 0) {
+        console.warn("No elements found for SplitText animation");
+        return;
+      }
+
+      elements.forEach((element) => {
+        element.style.opacity = "1";
+
+        const split = new SplitText(element, {
+          type: SplittingTextConfig.type,
+          linesClass: SplittingTextConfig.linesClass,
+        });
+
+        const animation = gsap.timeline({ paused: true });
+        split.lines.forEach((line, index) => {
+          const wordsInLine = line.querySelectorAll("div"); // Select word divs inside the line
+          animation.from(
+            wordsInLine,
+            {
+              duration: SplittingTextConfig.duration,
+              yPercent: SplittingTextConfig.yPercent,
+              opacity: SplittingTextConfig.opacity,
+              ease: SplittingTextConfig.ease,
+            },
+            index * SplittingTextConfig.stagger
+          );
+        });
+
+        ScrollTrigger.create({
+          trigger: element,
+          scroller: document.body,
+          start: SplittingTextConfig.start,
+          animation: animation,
+          toggleActions: "play none none reverse",
+          // markers: true,
+        });
+      });
+    });
+  }
+  textAnimation();
+
+  function animateOnView() {
+    // Select all border-animate spans
+    const borders = document.querySelectorAll(".border-animate");
+
+    // Animate each border as it comes into view
+    borders.forEach((border) => {
+      gsap.to(border, {
+        width: "100%", // Animate width from 0% to 100%
+        duration: 1, // Animation duration in seconds
+        ease: "power2.out", // Smooth easing
+        scrollTrigger: {
+          trigger: border, // Trigger animation when the border span enters the viewport
+          start: "top 80%", // Start animation when the top of the border is 80% from the top of the viewport
+          toggleActions: "play none none none", // Play animation on enter, no reverse on leave
+        },
+      });
+    });
+  }
+  animateOnView();
+
   var swiper = new Swiper(".journal_slider", {
     spaceBetween: 30,
     breakpoints: {
@@ -244,59 +321,5 @@ document.addEventListener("DOMContentLoaded", () => {
         spaceBetween: 50,
       },
     },
-  });
-});
-
-const SplittingTextConfig = {
-  selector: "h1, h2, p, span",
-  type: "words,lines",
-  linesClass: "line",
-  duration: 0.5,
-  yPercent: 100,
-  opacity: 0,
-  stagger: 0.1,
-  ease: "cubic-bezier(0.77, 0, 0.175, 1)",
-  start: "top 95%",
-};
-
-document.fonts.ready.then(() => {
-  const elements = document.querySelectorAll(SplittingTextConfig.selector);
-
-  if (elements.length === 0) {
-    console.warn("No elements found for SplitText animation");
-    return;
-  }
-
-  elements.forEach((element) => {
-    element.style.opacity = "1";
-
-    const split = new SplitText(element, {
-      type: SplittingTextConfig.type,
-      linesClass: SplittingTextConfig.linesClass,
-    });
-
-    const animation = gsap.timeline({ paused: true });
-    split.lines.forEach((line, index) => {
-      const wordsInLine = line.querySelectorAll("div"); // Select word divs inside the line
-      animation.from(
-        wordsInLine,
-        {
-          duration: SplittingTextConfig.duration,
-          yPercent: SplittingTextConfig.yPercent,
-          opacity: SplittingTextConfig.opacity,
-          ease: SplittingTextConfig.ease,
-        },
-        index * SplittingTextConfig.stagger
-      );
-    });
-
-    ScrollTrigger.create({
-      trigger: element,
-      scroller: document.body,
-      start: SplittingTextConfig.start,
-      animation: animation,
-      toggleActions: "play none none reverse",
-      // markers: true,
-    });
   });
 });
