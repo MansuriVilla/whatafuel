@@ -204,7 +204,7 @@ Youth Section Styles
 -----------------------*/
 .newsletter_section .site_container-full { max-width: 95%; }
 .newsletter_section { padding: clamp(40px, 5vw, 80px) 0; }
-.newsletter_inner { padding: clamp(40px, 20vw, 90px) 0; border-radius: clamp(22px, 8vw, 50px); justify-content: center; align-items: center; row-gap: clamp(30px, 3vw, 60px); aspect-ratio: 2.8; width: 100%; }
+.newsletter_inner { padding: clamp(40px, 20vw, 90px) 0; border-radius: clamp(22px, 8vw, 50px); justify-content: center; align-items: center; row-gap: clamp(30px, 3vw, 60px); aspect-ratio: 2; width: 100%; }
 .newsletter_top { text-align: center; }
 .newsletter_form { flex-wrap: wrap; gap: 20px; justify-content: center; align-items: center; padding: 0 30px; }
 .newsletter_form button { cursor: pointer; }
