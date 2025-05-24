@@ -355,15 +355,15 @@ when they come into view using GSAP and ScrollTrigger
   var swiper = new Swiper(".journal_slider", {
     spaceBetween: 30,
     breakpoints: {
-      320: {
+      0: {
         slidesPerView: 1,
         spaceBetween: 20,
       },
-      768: {
+      576: {
         slidesPerView: 2,
         spaceBetween: 30,
       },
-      1440: {
+      992: {
         slidesPerView: 3,
         spaceBetween: 50,
       },

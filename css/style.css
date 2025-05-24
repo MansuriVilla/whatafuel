@@ -23,7 +23,7 @@ img,
 video,
 picture { width: 100%; height: auto; display: flex; }
 h1,
-.text_xl { font-size: clamp(24px, 4vw, 48px); }
+.text_xl { font-size: clamp(24px, 3.2vw, 48px); }
 h2 { font-size: clamp(20px, 3vw, 44px); }
 h3 { font-size: clamp(18px, 2.5vw, 30px); }
 h4 { font-size: clamp(16px, 2vw, 24px); }
@@ -84,7 +84,7 @@ span.text_light { color: var(--text-highlight-color); }
 .site_navigation--item { flex: 1 1 100%; }
 .header .header_inner .header_content .header_navigations_links .cta_main { display: flex; align-items: center; gap: 10px; justify-content: flex-end; }
 .header_navigations_links ul { display: flex; align-items: center; transition: 0.5s all linear; transform-origin: center center; order: -1; }
-.header_navigations_links ul li a { width: fit-content; margin: 0 auto; padding: 0 15px; font-size: 18px; color: var(--white-color); transition: color 0.7s cubic-bezier(0.77, 0, 0.175, 1),
+.header_navigations_links ul li a { display: flex; width: max-content; margin: 0 auto; padding: 0 15px; font-size: 18px; color: var(--white-color); transition: color 0.7s cubic-bezier(0.77, 0, 0.175, 1),
     background-color 0.7s cubic-bezier(0.77, 0, 0.175, 1),
     opacity 0.7s cubic-bezier(0.77, 0, 0.175, 1),
     transform 0.7s cubic-bezier(0.77, 0, 0.175, 1); }
@@ -133,6 +133,7 @@ video.hero_background { height: 100%; object-fit: cover; }
 .introducing_ctas .primary_cta-outline.has_active--effect::after { background-color: var(--primary-color); }
 /* .hero_section_inner::after { content: ""; position: absolute; top: 0; left: 0; background: #00000010; height: 100%; width: 100%; z-index: -1; }
 */
+.hero_section_background :is(picture, img) { height: 100%; object-fit: cover; object-position: center center; }
 /*------------------------------
     Main Styles
 -----------------------*/
@@ -229,12 +230,12 @@ Youth Section Styles
 /*------------------------------
     Footer Styles
 -----------------------*/
-.footer_inner { padding: 112px 30px 60px; }
+.footer_inner { padding: clamp(50px,5vw, 112px) 30px clamp(30px, 4vw, 60px); }
 .footer_left-inner h4 { width: 100%; }
 .footer_inner-row.site_flex { flex-wrap: wrap; }
 .footer_nav-links { row-gap: 8px; }
 .footer_bottom-inner { justify-content: space-between; align-items: center; gap: 30px; flex-wrap: wrap; }
-.footer_logo { max-width: clamp(70px, 20vw, 130px); margin: 0 auto; }
+.footer_logo { max-width: clamp(70px, 8vw, 130px); margin: 0 auto; }
 .footer_bottom-col { flex: 1; }
 .footer_right .footer_right-inner { gap: 180px; max-width: 520px; margin: 0 auto; justify-content: space-between; }
 .footer_nav-link { color: var(--primary-color); transition: color 0.2s linear; text-transform: uppercase; }
