@@ -36,7 +36,7 @@ p { font-size: clamp(16px, 2.3vw, 22px); }
 .text_light { color: var(--gray-color); }
 .text_monoSpaced { font-family: "Phonic Monospaced", monospace; font-size: 14px; color: var(--primary-color); }
 .primary_cta-outline { background-color: transparent; }
-.primary_cta { backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px); transition: color 0.4s, background-color 0.4s, border-color 0.4s; background-color: var(--light-black-color); border-radius: 5px; color: var(--white-color); padding: clamp(10px, 2.2vw, 15px) clamp(12px, 3vw, 30px); display: inline-flex; text-transform: uppercase; font-size: clamp(14px, 2.3vw, 16px); border: 1px solid transparent; }
+.primary_cta { backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px); transition: color 0.4s, background-color 0.4s, border-color 0.4s; background-color: var(--light-black-color); border-radius: 5px; color: var(--white-color); padding: clamp(10px, 2.2vw, 15px) clamp(12px, 3vw, 30px); display: inline; text-transform: uppercase; font-size: clamp(14px, 2.3vw, 16px); border: 1px solid transparent; vertical-align: middle; }
 .primary_cta:hover { background-color: transparent; color: var(--light-black-color); border-color: var(--light-black-color); }
 .site_container-full { max-width: 1500px; width: 100%; margin: 0 auto; padding: 0px 30px; }
 .site_flex { display: flex; }

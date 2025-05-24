@@ -7,6 +7,13 @@ lenis.on("scroll", (e) => {});
 document.addEventListener("DOMContentLoaded", () => {
   gsap.registerPlugin(ScrollTrigger);
 
+  /*
+
+This is function is handling the offcanvas menu
+It will move the menu to the offcanvas menu when the screen is less than 820px
+
+*/
+
   function offcanvsMenu() {
     const t = document.querySelector(".menu-toggle"),
       m = document.querySelector(".off-canvas-menu-inner"),
@@ -61,6 +68,14 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   offcanvsMenu();
 
+  /*
+
+This is function is handling the sticky header
+It will add a class to the header when the user scrolls down
+It will remove the class when the user scrolls up
+
+*/
+
   function stickyScroll() {
     let lastScrollTop = 50;
     let header = document.querySelector(".header");
@@ -102,6 +117,13 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   stickyScroll();
 
+  /*
+
+This is function is handling the parallax effect
+It will add a parallax effect to the elements with the class "parallax"
+
+*/
+
   function customParallax() {
     const parallaxElements = document.querySelectorAll(".parallax");
 
@@ -113,6 +135,15 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
   customParallax();
+
+  /*
+
+
+This function is handling the velocity slider
+which will work on scroll
+
+
+*/
 
   function velocitySlider() {
     const sliders = document.querySelectorAll(".siteVelocity__slider");
@@ -228,6 +259,13 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   animateBackgrounds();
 
+  /*
+This is function is for the text animation
+Line by Line Staggering the text with custom ease
+
+
+*/
+
   function textAnimation() {
     const SplittingTextConfig = {
       selector: "h1, h2, p, span",
@@ -284,6 +322,15 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
   textAnimation();
+
+  /*
+
+This function is handling the border animation
+It will animate the borders of the elements with the class "border-animate"
+when they come into view using GSAP and ScrollTrigger
+
+
+*/
 
   function animateOnView() {
     // Select all border-animate spans
