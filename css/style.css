@@ -169,7 +169,7 @@ Youth Section Styles
 /*------------------------------
     Introducing Styles
 -----------------------*/
-.section_top { padding-top: clamp(50px, 8vw, 160px); padding-bottom: clamp(50px, 8vw, 160px); }
+.section_top { padding-top: clamp(50px, 8vw, 160px); padding-bottom: clamp(50px, 8vw, 160px); display: flex; justify-content: flex-start; align-items: flex-start; flex-direction: column; row-gap: 20px; text-align: start; }
 .sticky_content { position: sticky; top: 0; padding-top: 10rem; }
 .introducing_bottom-right { display: flex; justify-content: center; }
 .introducing_product-image { max-width: 500px; width: 100%; }
@@ -197,7 +197,7 @@ Youth Section Styles
 .olympains_item.flex_item:nth-child(even)
   .olympains_item-right
   .olympains_item-right--inner { border-radius: 0px clamp(20px, 3.2vw, 50px) clamp(20px, 3.2vw, 50px) 0px; }
-.has_list--style { row-gap: 20px; margin-left: 18px; }
+.has_list--style { row-gap: 12px; margin-left: 30px; flex: 1; }
 .has_list--style li { list-style: disc; }
 .olympains_item-image { aspect-ratio: 1; object-fit: cover; }
 /*------------------------------
@@ -208,9 +208,6 @@ Youth Section Styles
 /*------------------------------
     Journal Styles
 -----------------------*/
-/* .journal_bottom .swiper-wrapper { justify-content: flex-start; padding-bottom:50px; }
-.journal_bottom .swiper { max-width: 100%; height: 100%; padding-left: 50px; }
-*/
 .journal_top.section_top { padding: clamp(40px, 5vw, 80px) 0; }
 .swiper-slide { font-size: 18px; background: #fff; display: flex; justify-content: center; align-items: center; }
 .swiper-slide img { display: block; width: 100%; height: 100%; object-fit: cover; }
