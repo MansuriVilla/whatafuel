@@ -30,7 +30,8 @@
 .introducing_top.section_top { text-align: center; max-width: 500px; margin: 0 auto; }
  }
 @media only screen and (max-width: 575px) {
- .footer_bottom-col.footer_bottom-left { order: 1; width: 100%; text-align: center; }
+ .miracle_top .text_xl.site_flex { flex-direction: column; -ms-flex-direction: column; }
+.footer_bottom-col.footer_bottom-left { order: 1; width: 100%; text-align: center; }
 .footer_bottom-col { flex: 100%; }
 .footer_bottom-col.footer_bottom-right { justify-content: center; }
  }

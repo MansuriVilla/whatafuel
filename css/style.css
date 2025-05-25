@@ -69,7 +69,7 @@ p { font-size: clamp(16px, 2.3vw, 22px); }
     auto-fit,
     minmax(clamp(280px, 30vw, 570px), 1fr)
   ); }
-.grid_col-3 { grid-template-columns: repeat(3, 1fr); }
+.grid_col-3 { grid-template-columns: repeat( auto-fit, minmax(clamp(280px, 25vw, 440px), 1fr) ); }
 .grid_col-4 { grid-template-columns: repeat(4, 1fr); }
 .grid_col-5 { grid-template-columns: repeat(5, 1fr); }
 .grid_col-6 { grid-template-columns: repeat(6, 1fr); }
