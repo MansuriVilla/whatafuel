@@ -2,7 +2,7 @@
     url("../assets/Lateral-StandardRegular.woff") format("woff"); font-weight: normal; font-style: normal; font-display: swap; }
 @font-face { font-family: "Phonic Monospaced"; src: url("../assets/Phonic-MonospacedRegular.woff2") format("woff2"),
     url("../assets/Phonic-MonospacedRegular.woff") format("woff"); font-weight: 900; font-style: normal; font-display: swap; }
-:root { --primary-color: #000; --secondary-color: #434343; --gray-color: #adadad; --text-highlight-color: #fa8f0c; --light-black-color: rgba(250, 143, 12, 0.8); --white-color: #fff; }
+:root { --primary-color: #000; --secondary-color: #434343; --menu-breakpoint: 700px; --gray-color: #adadad; --text-highlight-color: #fa8f0c; --light-black-color: rgba(250, 143, 12, 0.8); --white-color: #fff; }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: "Lateral Standard", sans-serif; font-size: 16px; line-height: 1.33; color: var(--secondary-color); overflow-x: hidden; }
 body.no-scroll { overflow: hidden; }
@@ -33,6 +33,26 @@ p { font-size: clamp(16px, 2.3vw, 22px); }
 /*------------------------------
     Common Styles
 -----------------------*/
+/* Skeleton container styles */
+    .skeleton-container { position: relative; display: flex; width: 100%; overflow: hidden; }
+/* Skeleton placeholder */
+      .skeleton { background: #f0f0f0; position: relative; overflow: hidden; }
+/* Shimmer animation for skeleton */
+      .skeleton::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.4),
+          transparent
+        ); animation: shimmer 1.5s infinite; }
+@keyframes shimmer {
+ 0% { left: -100%; }
+100% { left: 100%; }
+ }
+.simpleParallax { width: 100%; }
+/* Image styles */
+      .skeleton-img { display: none; width: 100%; height: auto; }
+/* Show image when loaded */
+      .skeleton-img.loaded { display: block; }
 .text_light { color: var(--gray-color); }
 .text_monoSpaced { font-family: "Phonic Monospaced", monospace; font-size: 14px; color: var(--primary-color); }
 .primary_cta-outline { background-color: transparent; }

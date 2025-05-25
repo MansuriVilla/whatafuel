@@ -14,6 +14,60 @@ It will move the menu to the offcanvas menu when the screen is less than 820px
 
 */
 
+  // function offcanvsMenu() {
+  //   const t = document.querySelector(".menu-toggle"),
+  //     m = document.querySelector(".off-canvas-menu-inner"),
+  //     n = document.querySelector(".menu"),
+  //     c = document.querySelector(".cta_main"),
+  //     x = document.querySelector(".menu-close"),
+  //     h = document.querySelector(".header"),
+  //     b = document.querySelector("body");
+
+  //   const moveMenu = () => {
+  //     const w = window.innerWidth <= 1200,
+  //       l = document.querySelector(".header_navigations_links");
+  //     if (w) {
+  //       if (!m.contains(n)) m.appendChild(n);
+  //       if (!m.contains(c)) m.appendChild(c);
+  //     } else {
+  //       if (!l.contains(n)) l.appendChild(n);
+  //       if (!l.contains(c)) l.appendChild(c);
+  //     }
+  //   };
+
+  //   window.addEventListener("resize", moveMenu);
+  //   moveMenu();
+
+  //   t.addEventListener("click", () => {
+  //     m.classList.add("active");
+  //     h.classList.add("menu-active");
+  //     b.classList.add("no-scroll");
+  //   });
+
+  //   x.addEventListener("click", () => {
+  //     m.classList.remove("active");
+  //     h.classList.remove("menu-active");
+  //     b.classList.remove("no-scroll");
+  //   });
+
+  //   document.addEventListener("click", (e) => {
+  //     if (!m.contains(e.target) && !t.contains(e.target)) {
+  //       m.classList.remove("active");
+  //       h.classList.remove("menu-active");
+  //       b.classList.remove("no-scroll");
+  //     }
+  //   });
+
+  //   m.querySelectorAll(".header_nav_links").forEach((i) =>
+  //     i.addEventListener("click", () => {
+  //       m.classList.remove("active");
+  //       h.classList.remove("menu-active");
+  //       b.classList.remove("no-scroll");
+  //     })
+  //   );
+  // }
+  // offcanvsMenu();
+
   function offcanvsMenu() {
     const t = document.querySelector(".menu-toggle"),
       m = document.querySelector(".off-canvas-menu-inner"),
@@ -24,8 +78,13 @@ It will move the menu to the offcanvas menu when the screen is less than 820px
       b = document.querySelector("body");
 
     const moveMenu = () => {
-      const w = window.innerWidth <= 820,
-        l = document.querySelector(".header_navigations_links");
+      const root = document.documentElement;
+      const breakpoint = getComputedStyle(root)
+        .getPropertyValue("--menu-breakpoint")
+        .trim();
+      const breakpointValue = parseInt(breakpoint, 10);
+      const w = window.innerWidth <= breakpointValue;
+      const l = document.querySelector(".header_navigations_links");
       if (w) {
         if (!m.contains(n)) m.appendChild(n);
         if (!m.contains(c)) m.appendChild(c);
@@ -369,4 +428,69 @@ when they come into view using GSAP and ScrollTrigger
       },
     },
   });
+});
+
+// Function to apply skeleton effect to all images
+function applySkeletonToImages() {
+  // Select all img elements
+  const images = document.querySelectorAll("img");
+
+  images.forEach((img) => {
+    // Skip if already processed
+    if (img.classList.contains("skeleton-img")) return;
+
+    // Create skeleton container
+    const container = document.createElement("div");
+    container.classList.add("skeleton-container");
+
+    // Create skeleton placeholder
+    const skeleton = document.createElement("div");
+    skeleton.classList.add("skeleton");
+
+    // Add skeleton to container
+    container.appendChild(skeleton);
+
+    // Add skeleton-img class to the image and hide it initially
+    img.classList.add("skeleton-img");
+
+    // Wrap the image with the container
+    img.parentNode.insertBefore(container, img);
+    container.appendChild(img);
+
+    // If image is already loaded (e.g., from cache), show it immediately
+    if (img.complete && img.naturalWidth !== 0) {
+      img.classList.add("loaded");
+      skeleton.style.display = "none";
+      return;
+    }
+
+    // Create a new image to load in the background
+    const tempImg = new Image();
+    tempImg.src = img.src;
+
+    // When the image is loaded, replace the skeleton
+    tempImg.onload = () => {
+      img.classList.add("loaded");
+      skeleton.style.display = "none";
+    };
+
+    // Handle loading errors
+    tempImg.onerror = () => {
+      console.error("Failed to load image:", img.src);
+      skeleton.style.background = "#ccc"; // Indicate error
+    };
+  });
+}
+
+// Run on DOM content loaded
+document.addEventListener("DOMContentLoaded", applySkeletonToImages);
+
+// Optional: Handle dynamically added images (e.g., via AJAX)
+const observer = new MutationObserver(() => {
+  applySkeletonToImages();
+});
+
+observer.observe(document.body, {
+  childList: true,
+  subtree: true,
 });
