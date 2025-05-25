@@ -181,7 +181,7 @@ Youth Section Styles
 /*------------------------------
     Miracle Styles
 -----------------------*/
-.miracle_top .text_xl.site_flex { gap: 10px; }
+.miracle_top .text_xl.site_flex { gap: 10px; flex-wrap: wrap; }
 .miracle_bottom .site_grid { gap: clamp(20px, 4vw, 60px); }
 .miracle_item { border-top: 1px solid #00000014; }
 .miracle_item-inner { display: flex; flex-direction: column; justify-content: flex-start; align-items: flex-start; gap: 20px; padding: 20px 0; }
