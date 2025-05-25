@@ -1,7 +1,7 @@
 @media only screen and (min-width: 1920px) {
  .newsletter_section .site_container-full { max-width: 95%; }
  }
-@media only screen and (max-width: 1200px) {
+@media only screen and (max-width: 991px) {
  .header .header_brand_logo img { max-width: clamp(150px, 25vw, 255px); }
 .header--fixed .menu-toggle { color: var(--primary-color); }
 .header_brand_logo { justify-content: flex-start; }

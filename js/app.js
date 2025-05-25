@@ -14,60 +14,6 @@ It will move the menu to the offcanvas menu when the screen is less than 820px
 
 */
 
-  // function offcanvsMenu() {
-  //   const t = document.querySelector(".menu-toggle"),
-  //     m = document.querySelector(".off-canvas-menu-inner"),
-  //     n = document.querySelector(".menu"),
-  //     c = document.querySelector(".cta_main"),
-  //     x = document.querySelector(".menu-close"),
-  //     h = document.querySelector(".header"),
-  //     b = document.querySelector("body");
-
-  //   const moveMenu = () => {
-  //     const w = window.innerWidth <= 1200,
-  //       l = document.querySelector(".header_navigations_links");
-  //     if (w) {
-  //       if (!m.contains(n)) m.appendChild(n);
-  //       if (!m.contains(c)) m.appendChild(c);
-  //     } else {
-  //       if (!l.contains(n)) l.appendChild(n);
-  //       if (!l.contains(c)) l.appendChild(c);
-  //     }
-  //   };
-
-  //   window.addEventListener("resize", moveMenu);
-  //   moveMenu();
-
-  //   t.addEventListener("click", () => {
-  //     m.classList.add("active");
-  //     h.classList.add("menu-active");
-  //     b.classList.add("no-scroll");
-  //   });
-
-  //   x.addEventListener("click", () => {
-  //     m.classList.remove("active");
-  //     h.classList.remove("menu-active");
-  //     b.classList.remove("no-scroll");
-  //   });
-
-  //   document.addEventListener("click", (e) => {
-  //     if (!m.contains(e.target) && !t.contains(e.target)) {
-  //       m.classList.remove("active");
-  //       h.classList.remove("menu-active");
-  //       b.classList.remove("no-scroll");
-  //     }
-  //   });
-
-  //   m.querySelectorAll(".header_nav_links").forEach((i) =>
-  //     i.addEventListener("click", () => {
-  //       m.classList.remove("active");
-  //       h.classList.remove("menu-active");
-  //       b.classList.remove("no-scroll");
-  //     })
-  //   );
-  // }
-  // offcanvsMenu();
-
   function offcanvsMenu() {
     const t = document.querySelector(".menu-toggle"),
       m = document.querySelector(".off-canvas-menu-inner"),
@@ -78,13 +24,8 @@ It will move the menu to the offcanvas menu when the screen is less than 820px
       b = document.querySelector("body");
 
     const moveMenu = () => {
-      const root = document.documentElement;
-      const breakpoint = getComputedStyle(root)
-        .getPropertyValue("--menu-breakpoint")
-        .trim();
-      const breakpointValue = parseInt(breakpoint, 10);
-      const w = window.innerWidth <= breakpointValue;
-      const l = document.querySelector(".header_navigations_links");
+      const w = window.innerWidth <= 991,
+        l = document.querySelector(".header_navigations_links");
       if (w) {
         if (!m.contains(n)) m.appendChild(n);
         if (!m.contains(c)) m.appendChild(c);
