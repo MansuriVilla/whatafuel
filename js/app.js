@@ -352,80 +352,104 @@ when they come into view using GSAP and ScrollTrigger
   }
   animateOnView();
 
-  // Function to remove active class from all links and sections
-  function clearActiveClasses() {
-    document.querySelectorAll(".aside_navigation-list a").forEach((link) => {
-      link.classList.remove("is_view");
-    });
-    document.querySelectorAll(".procedure_section").forEach((section) => {
-      section.classList.remove("is_view");
-    });
-  }
-
-  // Function to set active class based on section ID
-  function setActiveSection(sectionId) {
-    clearActiveClasses();
-    const navLink = document.querySelector(`a[href="#${sectionId}"]`);
-    const section = document.querySelector(`#${sectionId}`);
-    if (navLink && section) {
-      navLink.classList.add("is_view");
-      section.classList.add("is_view");
+  function asideNavigationSys() {
+    // Function to remove active class from all links and sections
+    function clearActiveClasses() {
+      document.querySelectorAll(".aside_navigation-list a").forEach((link) => {
+        link.classList.remove("is_view");
+      });
+      document.querySelectorAll(".procedure_section").forEach((section) => {
+        section.classList.remove("is_view");
+      });
     }
-  }
 
-  // Intersection Observer to detect visible sections
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const sectionId = entry.target.id;
+    // Function to set active class based on section ID
+    function setActiveSection(sectionId) {
+      clearActiveClasses();
+      const navLink = document.querySelector(`a[href="#${sectionId}"]`);
+      const section = document.querySelector(`#${sectionId}`);
+      if (navLink && section) {
+        navLink.classList.add("is_view");
+        section.classList.add("is_view");
+      }
+    }
+
+    // Intersection Observer to detect visible sections
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !isScrolling) {
+            const sectionId = entry.target.id;
+            setActiveSection(sectionId);
+          }
+        });
+      },
+      {
+        rootMargin: "-150px 0px -150px 0px", // Adjusted to align with nav item
+        threshold: 0.5, // Trigger when 50% of section is visible
+      }
+    );
+
+    // Flag to track if scrolling is caused by a click
+    let isScrolling = false;
+
+    // Observe all sections
+    document.querySelectorAll(".procedure_section").forEach((section) => {
+      observer.observe(section);
+    });
+
+    // Handle navigation link clicks with offset
+    document.querySelectorAll(".aside_navigation-list a").forEach((link) => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        const sectionId = link.getAttribute("href").substring(1);
+        const targetSection = document.querySelector(`#${sectionId}`);
+        if (targetSection) {
+          isScrolling = true; // Set flag to disable observer
+
+          // Calculate the offset to align section with nav item
+          const offset = 150; // Adjust this value based on your layout
+          const sectionPosition =
+            targetSection.getBoundingClientRect().top + window.pageYOffset;
+          const offsetPosition = sectionPosition - offset;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth",
+          });
+
           setActiveSection(sectionId);
+
+          // Re-enable observer after scrolling completes
+          setTimeout(() => {
+            isScrolling = false;
+          }, 1000); // Adjust timeout based on scroll duration
         }
       });
-    },
-    {
-      rootMargin: "-350px 0px -350px 0px", // Adjust to trigger when section is near viewport center
-      threshold: 1, // Trigger when 100% of section is visible
-    }
-  );
-
-  // Observe all sections
-  document.querySelectorAll(".procedure_section").forEach((section) => {
-    observer.observe(section);
-  });
-
-  // Handle navigation link clicks
-  document.querySelectorAll(".aside_navigation-list a").forEach((link) => {
-    link.addEventListener("click", (e) => {
-      e.preventDefault();
-      const sectionId = link.getAttribute("href").substring(1);
-      const targetSection = document.querySelector(`#${sectionId}`);
-      if (targetSection) {
-        targetSection.scrollIntoView({ behavior: "smooth" });
-        setActiveSection(sectionId);
-      }
-    });
-  });
-
-  // Set initial active section based on current scroll position
-  window.addEventListener("load", () => {
-    const sections = document.querySelectorAll(".procedure_section");
-    let closestSection = null;
-    let minDistance = Infinity;
-
-    sections.forEach((section) => {
-      const rect = section.getBoundingClientRect();
-      const distance = Math.abs(rect.top);
-      if (distance < minDistance) {
-        minDistance = distance;
-        closestSection = section;
-      }
     });
 
-    if (closestSection) {
-      setActiveSection(closestSection.id);
-    }
-  });
+    // Set initial active section based on current scroll position
+    window.addEventListener("load", () => {
+      const sections = document.querySelectorAll(".procedure_section");
+      let closestSection = null;
+      let minDistance = Infinity;
+
+      sections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        const distance = Math.abs(rect.top);
+        if (distance < minDistance) {
+          minDistance = distance;
+          closestSection = section;
+        }
+      });
+
+      if (closestSection) {
+        setActiveSection(closestSection.id);
+      }
+    });
+  }
+
+  asideNavigationSys();
 
   var swiper = new Swiper(".journal_slider", {
     spaceBetween: 30,
@@ -444,69 +468,4 @@ when they come into view using GSAP and ScrollTrigger
       },
     },
   });
-});
-
-// Function to apply skeleton effect to all images
-function applySkeletonToImages() {
-  // Select all img elements
-  const images = document.querySelectorAll("img");
-
-  images.forEach((img) => {
-    // Skip if already processed
-    if (img.classList.contains("skeleton-img")) return;
-
-    // Create skeleton container
-    const container = document.createElement("div");
-    container.classList.add("skeleton-container");
-
-    // Create skeleton placeholder
-    const skeleton = document.createElement("div");
-    skeleton.classList.add("skeleton");
-
-    // Add skeleton to container
-    container.appendChild(skeleton);
-
-    // Add skeleton-img class to the image and hide it initially
-    img.classList.add("skeleton-img");
-
-    // Wrap the image with the container
-    img.parentNode.insertBefore(container, img);
-    container.appendChild(img);
-
-    // If image is already loaded (e.g., from cache), show it immediately
-    if (img.complete && img.naturalWidth !== 0) {
-      img.classList.add("loaded");
-      skeleton.style.display = "none";
-      return;
-    }
-
-    // Create a new image to load in the background
-    const tempImg = new Image();
-    tempImg.src = img.src;
-
-    // When the image is loaded, replace the skeleton
-    tempImg.onload = () => {
-      img.classList.add("loaded");
-      skeleton.style.display = "none";
-    };
-
-    // Handle loading errors
-    tempImg.onerror = () => {
-      console.error("Failed to load image:", img.src);
-      skeleton.style.background = "#ccc"; // Indicate error
-    };
-  });
-}
-
-// Run on DOM content loaded
-document.addEventListener("DOMContentLoaded", applySkeletonToImages);
-
-// Optional: Handle dynamically added images (e.g., via AJAX)
-const observer = new MutationObserver(() => {
-  applySkeletonToImages();
-});
-
-observer.observe(document.body, {
-  childList: true,
-  subtree: true,
 });
