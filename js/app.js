@@ -385,8 +385,8 @@ when they come into view using GSAP and ScrollTrigger
         });
       },
       {
-        rootMargin: "-150px 0px -150px 0px", // Adjusted to align with nav item
-        threshold: 0.5, // Trigger when 50% of section is visible
+        rootMargin: "-150px 0px -150px 0px",
+        threshold: 0.5,
       }
     );
 
@@ -405,10 +405,10 @@ when they come into view using GSAP and ScrollTrigger
         const sectionId = link.getAttribute("href").substring(1);
         const targetSection = document.querySelector(`#${sectionId}`);
         if (targetSection) {
-          isScrolling = true; // Set flag to disable observer
+          isScrolling = true;
 
           // Calculate the offset to align section with nav item
-          const offset = 150; // Adjust this value based on your layout
+          const offset = 150;
           const sectionPosition =
             targetSection.getBoundingClientRect().top + window.pageYOffset;
           const offsetPosition = sectionPosition - offset;
@@ -420,10 +420,13 @@ when they come into view using GSAP and ScrollTrigger
 
           setActiveSection(sectionId);
 
+          // Close the off-canvas menu after clicking a link
+          closeMenu();
+
           // Re-enable observer after scrolling completes
           setTimeout(() => {
             isScrolling = false;
-          }, 1000); // Adjust timeout based on scroll duration
+          }, 1000);
         }
       });
     });
@@ -447,6 +450,34 @@ when they come into view using GSAP and ScrollTrigger
         setActiveSection(closestSection.id);
       }
     });
+
+    // Off-canvas menu functionality
+    const menuToggle = document.querySelector(".aside_menu-toggle");
+    const offcanvasMenu = document.querySelector(".aside_offcanvas-menu");
+    const backdrop = document.querySelector(".aside_backdrop");
+    const closeMenuBtn = document.querySelector(".aside_close-menu");
+
+    function openMenu() {
+      offcanvasMenu.classList.add("open");
+      backdrop.classList.add("active");
+
+      // GSAP stagger animation for menu links
+      gsap.fromTo(
+        ".aside_navigation-list li",
+        { opacity: 0, x: -20 },
+        { opacity: 1, x: 0, stagger: 0.1, duration: 0.5, ease: "power2.out" }
+      );
+    }
+
+    function closeMenu() {
+      offcanvasMenu.classList.remove("open");
+      backdrop.classList.remove("active");
+    }
+
+    // Event listeners for menu toggle, close button, and backdrop
+    menuToggle.addEventListener("click", openMenu);
+    closeMenuBtn.addEventListener("click", closeMenu);
+    backdrop.addEventListener("click", closeMenu);
   }
 
   asideNavigationSys();
