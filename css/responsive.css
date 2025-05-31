@@ -12,6 +12,14 @@
 .off-canvas-menu { position: fixed; top: 0; width: 100%; background: var(--white-color); height: 100%; min-height: 100vh; transition: all 0.2s linear; }
 .header_nav_links { padding: 18px 0; display: flex; width: 100%; border-bottom: 1px solid #000; }
 .menu-toggle { font-size: 26px; color: var(--white-color); transition: color 0.7s cubic-bezier(0.77, 0, 0.175, 1), background-color 0.7s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.7s cubic-bezier(0.77, 0, 0.175, 1), transform 0.7s cubic-bezier(0.77, 0, 0.175, 1); }
+.aside_left { width: 80%; height: 100%; position: fixed; top: 0; left: 0; transform: translateX(-100%); background-color: #fff; box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2); z-index: 9999; }
+.aside_left.open { transform: translateX(0); }
+.aside_right { width: 100%; padding-left: 30px; padding-right: 30px; }
+.aside_menu-toggle { display: block; }
+.aside_close-menu, .aside_offcanvas-top h2 { display: block; }
+.aside_header-mobile { display: flex; }
+.aside_navigation-list { padding: 60px 20px 20px; }
+.aside_navigation-list li { opacity: 0; transform: translateX(-20px); }
  }
 @media only screen and (max-width: 820px) {
  .sticky_content { position: inherit; padding-top: 0; }
