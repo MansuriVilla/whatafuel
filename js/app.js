@@ -352,6 +352,81 @@ when they come into view using GSAP and ScrollTrigger
   }
   animateOnView();
 
+  // Function to remove active class from all links and sections
+  function clearActiveClasses() {
+    document.querySelectorAll(".aside_navigation-list a").forEach((link) => {
+      link.classList.remove("is_view");
+    });
+    document.querySelectorAll(".procedure_section").forEach((section) => {
+      section.classList.remove("is_view");
+    });
+  }
+
+  // Function to set active class based on section ID
+  function setActiveSection(sectionId) {
+    clearActiveClasses();
+    const navLink = document.querySelector(`a[href="#${sectionId}"]`);
+    const section = document.querySelector(`#${sectionId}`);
+    if (navLink && section) {
+      navLink.classList.add("is_view");
+      section.classList.add("is_view");
+    }
+  }
+
+  // Intersection Observer to detect visible sections
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const sectionId = entry.target.id;
+          setActiveSection(sectionId);
+        }
+      });
+    },
+    {
+      rootMargin: "-350px 0px -350px 0px", // Adjust to trigger when section is near viewport center
+      threshold: 1, // Trigger when 100% of section is visible
+    }
+  );
+
+  // Observe all sections
+  document.querySelectorAll(".procedure_section").forEach((section) => {
+    observer.observe(section);
+  });
+
+  // Handle navigation link clicks
+  document.querySelectorAll(".aside_navigation-list a").forEach((link) => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      const sectionId = link.getAttribute("href").substring(1);
+      const targetSection = document.querySelector(`#${sectionId}`);
+      if (targetSection) {
+        targetSection.scrollIntoView({ behavior: "smooth" });
+        setActiveSection(sectionId);
+      }
+    });
+  });
+
+  // Set initial active section based on current scroll position
+  window.addEventListener("load", () => {
+    const sections = document.querySelectorAll(".procedure_section");
+    let closestSection = null;
+    let minDistance = Infinity;
+
+    sections.forEach((section) => {
+      const rect = section.getBoundingClientRect();
+      const distance = Math.abs(rect.top);
+      if (distance < minDistance) {
+        minDistance = distance;
+        closestSection = section;
+      }
+    });
+
+    if (closestSection) {
+      setActiveSection(closestSection.id);
+    }
+  });
+
   var swiper = new Swiper(".journal_slider", {
     spaceBetween: 30,
     breakpoints: {
