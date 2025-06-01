@@ -279,7 +279,7 @@ Youth Section Styles
 .footer_inner .footer_inner-row.site_flex { row-gap: clamp(40px, 12vw, 200px); }
 .footer_bottom-col.footer_bottom-left { text-align: left; }
 .footer_bottom-col.footer_bottom-right { text-align: right; gap:20px; justify-content: flex-end; }
-.footer_input { padding: 20px 10px; border: 1px solid #000; border-radius: 5px; width: 100%; max-width: 500px; }
+.footer_input,.site_input { padding: 20px 10px; border: 1px solid #000; border-radius: 5px; width: 100%; max-width: 500px; }
 .footer_input-area { gap: 20px; }
 .footer_input-area.singup.site_flex { flex-wrap: nowrap; margin-top: 20px; }
 .footer_bottom-col.footer_bottom-left a img { max-width: clamp(120px, 30vw, 250px); margin: 0 auto; }

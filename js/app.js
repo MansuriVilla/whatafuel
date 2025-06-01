@@ -137,129 +137,6 @@ It will add a parallax effect to the elements with the class "parallax"
   customParallax();
 
   /*
-
-
-This function is handling the velocity slider
-which will work on scroll
-
-
-*/
-
-  function velocitySlider() {
-    const sliders = document.querySelectorAll(".siteVelocity__slider");
-    const baseSpeed = 0.5;
-
-    sliders.forEach((slider) => {
-      let images = Array.from(slider.children);
-      let imgWidth, totalWidth;
-      let isScrolling = false;
-
-      function updateWidths() {
-        imgWidth = images[0].offsetWidth + 20;
-        totalWidth = imgWidth * images.length;
-      }
-
-      updateWidths();
-
-      while (slider.scrollWidth < window.innerWidth * 2) {
-        images.forEach((img) => slider.appendChild(img.cloneNode(true)));
-        images = Array.from(slider.children);
-        updateWidths();
-      }
-
-      let position = 0;
-      let extraSpeed = 0;
-      let direction = 1;
-      let speed = baseSpeed;
-
-      function animate() {
-        speed = (baseSpeed + extraSpeed) * direction;
-        position += speed;
-
-        if (Math.abs(position) >= totalWidth) {
-          position = position % totalWidth;
-        }
-
-        slider.style.transform = `translateX(${-position}px)`;
-
-        if (!isScrolling) {
-          extraSpeed *= 0.95;
-          if (Math.abs(extraSpeed) < 0.01) extraSpeed = 0;
-        }
-
-        requestAnimationFrame(animate);
-      }
-
-      function throttle(fn, wait) {
-        let lastTime = 0;
-        return function (...args) {
-          const now = performance.now();
-          if (now - lastTime >= wait) {
-            fn.apply(this, args);
-            lastTime = now;
-          }
-        };
-      }
-
-      window.addEventListener(
-        "wheel",
-        throttle((event) => {
-          isScrolling = true;
-          let delta = event.deltaY || -event.wheelDelta;
-
-          direction = delta > 0 ? -1 : 1;
-
-          let acceleration = Math.min(Math.abs(delta) * 0.02, 2);
-          extraSpeed = Math.min(extraSpeed + acceleration, 12);
-
-          setTimeout(() => {
-            isScrolling = false;
-          }, 150);
-        }, 50)
-      );
-
-      window.addEventListener("resize", () => {
-        images = Array.from(slider.children);
-        updateWidths();
-        position = position % totalWidth;
-      });
-
-      slider.style.willChange = "transform";
-      slider.style.transition = "none";
-
-      animate();
-    });
-  }
-  velocitySlider();
-
-  function animateBackgrounds() {
-    const sections = document.querySelectorAll(".change_background");
-
-    sections.forEach((section, index) => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: "top 60%",
-          end: "bottom 70%",
-          scrub: true,
-          markers: false,
-        },
-      });
-
-      tl.to(section, {
-        backgroundColor: "rgb(249, 245, 237)",
-        duration: 1,
-        ease: "linear",
-      }).to(section, {
-        backgroundColor: "rgb(255, 255, 255)",
-        duration: 1,
-        ease: "linear",
-      });
-    });
-  }
-  animateBackgrounds();
-
-  /*
 This is function is for the text animation
 Line by Line Staggering the text with custom ease
 
@@ -279,48 +156,66 @@ Line by Line Staggering the text with custom ease
       start: "top 95%",
     };
 
-    document.fonts.ready.then(() => {
-      const elements = document.querySelectorAll(SplittingTextConfig.selector);
-
-      if (elements.length === 0) {
-        console.warn("No elements found for SplitText animation");
-        return;
-      }
-
-      elements.forEach((element) => {
-        element.style.opacity = "1";
-
-        const split = new SplitText(element, {
-          type: SplittingTextConfig.type,
-          linesClass: SplittingTextConfig.linesClass,
-        });
-
-        const animation = gsap.timeline({ paused: true });
-        split.lines.forEach((line, index) => {
-          const wordsInLine = line.querySelectorAll("div"); // Select word divs inside the line
-          animation.from(
-            wordsInLine,
-            {
-              duration: SplittingTextConfig.duration,
-              yPercent: SplittingTextConfig.yPercent,
-              opacity: SplittingTextConfig.opacity,
-              ease: SplittingTextConfig.ease,
-            },
-            index * SplittingTextConfig.stagger
-          );
-        });
-
-        ScrollTrigger.create({
-          trigger: element,
-          scroller: document.body,
-          start: SplittingTextConfig.start,
-          animation: animation,
-          toggleActions: "play none none reverse",
-          // markers: true,
-        });
+    // Set initial visibility to hidden for all targeted elements
+    document
+      .querySelectorAll(SplittingTextConfig.selector)
+      .forEach((element) => {
+        element.style.visibility = "hidden";
       });
+
+    document.fonts.ready.then(() => {
+      if (document.body.classList.contains("animation_init")) {
+        const elements = document.querySelectorAll(
+          SplittingTextConfig.selector
+        );
+
+        if (elements.length === 0) {
+          console.warn("No elements found for SplitText animation");
+          return;
+        }
+
+        elements.forEach((element) => {
+          element.style.visibility = "visible";
+          element.style.opacity = "1";
+
+          const split = new SplitText(element, {
+            type: SplittingTextConfig.type,
+            linesClass: SplittingTextConfig.linesClass,
+          });
+
+          const animation = gsap.timeline({ paused: true });
+          split.lines.forEach((line, index) => {
+            const wordsInLine = line.querySelectorAll("div");
+            animation.from(
+              wordsInLine,
+              {
+                duration: SplittingTextConfig.duration,
+                yPercent: SplittingTextConfig.yPercent,
+                opacity: SplittingTextConfig.opacity,
+                ease: SplittingTextConfig.ease,
+              },
+              index * SplittingTextConfig.stagger
+            );
+          });
+
+          ScrollTrigger.create({
+            trigger: element,
+            scroller: document.body,
+            start: SplittingTextConfig.start,
+            animation: animation,
+            toggleActions: "play none none reverse",
+            // markers: true,
+          });
+        });
+      } else {
+        console.log(
+          'Animation not initialized: body does not have "animation_init" class'
+        );
+      }
     });
   }
+
+  document.body.classList.add("animation_init");
   textAnimation();
 
   /*
@@ -355,12 +250,14 @@ when they come into view using GSAP and ScrollTrigger
   function asideNavigationSys() {
     // Function to remove active class from all links and sections
     function clearActiveClasses() {
-      document.querySelectorAll(".aside_navigation-list a").forEach((link) => {
-        link.classList.remove("is_view");
-      });
-      document.querySelectorAll(".procedure_section").forEach((section) => {
-        section.classList.remove("is_view");
-      });
+      const links = document.querySelectorAll(".aside_navigation-list a");
+      const sections = document.querySelectorAll(".procedure_section");
+      if (links.length) {
+        links.forEach((link) => link.classList.remove("is_view"));
+      }
+      if (sections.length) {
+        sections.forEach((section) => section.classList.remove("is_view"));
+      }
     }
 
     // Function to set active class based on section ID
@@ -375,6 +272,12 @@ when they come into view using GSAP and ScrollTrigger
     }
 
     // Intersection Observer to detect visible sections
+    const sections = document.querySelectorAll(".procedure_section");
+    if (!sections.length) {
+      console.warn("No .procedure_section elements found for aside navigation");
+      return;
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -394,60 +297,66 @@ when they come into view using GSAP and ScrollTrigger
     let isScrolling = false;
 
     // Observe all sections
-    document.querySelectorAll(".procedure_section").forEach((section) => {
+    sections.forEach((section) => {
       observer.observe(section);
     });
 
     // Handle navigation link clicks with offset
-    document.querySelectorAll(".aside_navigation-list a").forEach((link) => {
-      link.addEventListener("click", (e) => {
-        e.preventDefault();
-        const sectionId = link.getAttribute("href").substring(1);
-        const targetSection = document.querySelector(`#${sectionId}`);
-        if (targetSection) {
-          isScrolling = true;
+    const navLinks = document.querySelectorAll(".aside_navigation-list a");
+    if (navLinks.length) {
+      navLinks.forEach((link) => {
+        link.addEventListener("click", (e) => {
+          e.preventDefault();
+          const sectionId = link.getAttribute("href").substring(1);
+          const targetSection = document.querySelector(`#${sectionId}`);
+          if (targetSection) {
+            isScrolling = true;
 
-          // Calculate the offset to align section with nav item
-          const offset = 150;
-          const sectionPosition =
-            targetSection.getBoundingClientRect().top + window.pageYOffset;
-          const offsetPosition = sectionPosition - offset;
+            // Calculate the offset to align section with nav item
+            const offset = 150;
+            const sectionPosition =
+              targetSection.getBoundingClientRect().top + window.pageYOffset;
+            const offsetPosition = sectionPosition - offset;
 
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: "smooth",
-          });
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: "smooth",
+            });
 
-          setActiveSection(sectionId);
+            setActiveSection(sectionId);
 
-          // Close the off-canvas menu after clicking a link
-          closeMenu();
+            // Close the off-canvas menu after clicking a link
+            closeMenu();
 
-          // Re-enable observer after scrolling completes
-          setTimeout(() => {
-            isScrolling = false;
-          }, 1000);
-        }
+            // Re-enable observer after scrolling completes
+            setTimeout(() => {
+              isScrolling = false;
+            }, 1000);
+          }
+        });
       });
-    });
+    } else {
+      console.warn("No .aside_navigation-list a elements found for navigation");
+    }
 
     // Set initial active section based on current scroll position
     window.addEventListener("load", () => {
-      const sections = document.querySelectorAll(".procedure_section");
-      let closestSection = null;
-      let minDistance = Infinity;
+      if (sections.length) {
+        let closestSection = null;
+        let minDistance = Infinity;
 
-      sections.forEach((section) => {
-        const rect = section.getBoundingClientRect();
-        const distance = Math.abs(rect.top);
-        if (distance < minDistance) {
-          minDistance = distance;
-          closestSection = section;
+        sections.forEach((section) => {
+          const rect = section.getBoundingClientRect();
+          const distance = Math.abs(rect.top);
+          if (distance < minDistance) {
+            minDistance = distance;
+            closestSection = section;
+          }
+        });
+
+        if (closestSection) {
+          setActiveSection(closestSection.id);
         }
-      });
-
-      if (closestSection) {
-        setActiveSection(closestSection.id);
       }
     });
 
@@ -458,26 +367,47 @@ when they come into view using GSAP and ScrollTrigger
     const closeMenuBtn = document.querySelector(".aside_close-menu");
 
     function openMenu() {
-      offcanvasMenu.classList.add("open");
-      backdrop.classList.add("active");
+      if (offcanvasMenu && backdrop) {
+        offcanvasMenu.classList.add("open");
+        backdrop.classList.add("active");
 
-      // GSAP stagger animation for menu links
-      gsap.fromTo(
-        ".aside_navigation-list li",
-        { opacity: 0, x: -20 },
-        { opacity: 1, x: 0, stagger: 0.1, duration: 0.5, ease: "power2.out" }
-      );
+        // GSAP stagger animation for menu links
+        const menuLinks = document.querySelectorAll(
+          ".aside_navigation-list li"
+        );
+        if (menuLinks.length && typeof gsap !== "undefined") {
+          gsap.fromTo(
+            menuLinks,
+            { opacity: 0, x: -20 },
+            {
+              opacity: 1,
+              x: 0,
+              stagger: 0.1,
+              duration: 0.5,
+              ease: "power2.out",
+            }
+          );
+        }
+      }
     }
 
     function closeMenu() {
-      offcanvasMenu.classList.remove("open");
-      backdrop.classList.remove("active");
+      if (offcanvasMenu && backdrop) {
+        offcanvasMenu.classList.remove("open");
+        backdrop.classList.remove("active");
+      }
     }
 
     // Event listeners for menu toggle, close button, and backdrop
-    menuToggle.addEventListener("click", openMenu);
-    closeMenuBtn.addEventListener("click", closeMenu);
-    backdrop.addEventListener("click", closeMenu);
+    if (menuToggle) {
+      menuToggle.addEventListener("click", openMenu);
+    }
+    if (closeMenuBtn) {
+      closeMenuBtn.addEventListener("click", closeMenu);
+    }
+    if (backdrop) {
+      backdrop.addEventListener("click", closeMenu);
+    }
   }
 
   asideNavigationSys();
