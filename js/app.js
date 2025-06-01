@@ -412,6 +412,40 @@ when they come into view using GSAP and ScrollTrigger
 
   asideNavigationSys();
 
+  function initRadioButtons() {
+    const radioGroups = document.querySelectorAll(".site_checkbox-group");
+    if (!radioGroups.length) {
+      console.warn("No .site_checkbox-group elements found for radio buttons");
+      return;
+    }
+
+    radioGroups.forEach((group) => {
+      const input = group.querySelector(".site_checkbox");
+      const label = group.querySelector("label");
+
+      if (!input || !label) {
+        console.warn("Radio input or label missing in .site_checkbox-group");
+        return;
+      }
+
+      // Set initial ARIA state
+      label.setAttribute("aria-checked", input.checked);
+
+      // Update ARIA state on change
+      input.addEventListener("change", () => {
+        // Update all labels in the group to reflect checked state
+        radioGroups.forEach((g) => {
+          const otherInput = g.querySelector(".site_checkbox");
+          const otherLabel = g.querySelector("label");
+          if (otherInput && otherLabel) {
+            otherLabel.setAttribute("aria-checked", otherInput.checked);
+          }
+        });
+      });
+    });
+  }
+  initRadioButtons();
+
   var swiper = new Swiper(".journal_slider", {
     spaceBetween: 30,
     breakpoints: {
