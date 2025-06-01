@@ -3,12 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>What A fuel | Products</title>
+    <title>What A fuel | Contact Us</title>
     <link rel="stylesheet" href="../css/app.css" />
     <link rel="shortcut icon" href="../assets/Logo.webp" type="image/x-icon" />
   </head>
 
-  <body>
+  <body class="page_body">
     <header class="header">
       <div class="header_inner">
         <div class="header_content container">
@@ -62,168 +62,219 @@
         </div>
       </div>
     </header>
-    <section class="hero_section">
-      <div class="hero_section_inner">
-        <div class="hero_section_background">
-          <picture>
-            <source
-              srcset="../assets/product-hero-banner.webp"
-              media="(min-width:769px)"
-            />
-            <source
-              srcset="../assets/product-hero-banner.webp"
-              media="(max-width:768px)"
-            />
-            <img
-              src="../assets/product-hero-banner.webp"
-              alt="Banner Image Hero"
-            />
-          </picture>
-        </div>
-        <div class="hero_section_content">
-          <div class="hero_content-top">
-            <h1>
-              Fueling Global Trade with <br />
-              Trusted Energy Solutions
-            </h1>
-          </div>
-          <div class="hero_section-bottom">
-            <img src="../assets/Scroll_Down.webp" alt="Scroll Down" />
-          </div>
-        </div>
-      </div>
-    </section>
+
     <main class="main_content">
-      <section class="form_container w-100">
+      <section class="page_header w-100">
+        <h1 class="text_xl">Request a Quote</h1>
+        <p>
+          Fill out the form below to receive a customized quote for your energy,
+          petroleum, or edible product needs. Our team will get back to you with
+          competitive pricing and flexible solutions tailored to your
+          requirements.
+        </p>
+        <span class="border-animation"></span>
+      </section>
+      <section class="tnc_content form_container w-100">
         <form action="#" method="post" class="site_form">
-          <div class="site_input-group">
-            <label for="fullname">Full Name</label>
-            <input
-              type="text"
-              name="Full Name"
-              id="fullname"
-              class="site_input"
-            />
-          </div>
+          <div class="form_col site_input-groups">
+            <div class="site_input-group">
+              <input
+                type="text"
+                name="Full Name"
+                id="fullname"
+                class="site_input"
+                placeholder="Full Name"
+                aria-describedby="fullname-label"
+              />
+              <label for="fullname" id="fullname-label">Full Name</label>
+            </div>
 
-          <div class="site_input-group">
-            <label for="companyname">Company Name</label>
-            <input
-              type="text"
-              name="Company Name"
-              id="companyname"
-              class="site_input"
-            />
-          </div>
-
-          <div class="site_input-group">
-            <label for="email">Email</label>
-            <input type="email" name="Email" id="email" class="site_input" />
-          </div>
-          <div class="site_input-group">
-            <label for="phone">Phone Number</label>
-            <input
-              type="tel"
-              name="Phone Number"
-              id="phone"
-              class="site_input"
-            />
-          </div>
-          <div class="site_input-group">
-            <label for="country">Country</label>
-            <select name="Country" id="country" class="site_input">
-              <option value="">Select Country</option>
-              <option value="USA">USA</option>
-              <option value="Canada">Canada</option>
-              <option value="UK">UK</option>
-            </select>
-          </div>
-          <div class="products_lists-checkboxs">
             <div class="site_input-group">
               <input
-                type="checkbox"
-                name="products"
-                id="aviation-fuels"
-                class="site_checkbox"
+                type="text"
+                name="Company Name"
+                id="companyname"
+                class="site_input"
+                placeholder="Company Name"
+                aria-describedby="companyname-label"
               />
-              <label for="aviation-fuels">Aviation Fuels</label>
-            </div>
-            <div class="site_input-group">
-              <input
-                type="checkbox"
-                name="products"
-                id="diesel-gas-oils"
-                class="site_checkbox"
-              />
-              <label for="diesel-gas-oils">Diesel & Gas Oils</label>
-            </div>
-            <div class="site_input-group">
-              <input
-                type="checkbox"
-                name="products"
-                id="heavy-fuel-oils"
-                class="site_checkbox"
-              />
-              <label for="heavy-fuel-oils">Heavy Fuel Oils</label>
-            </div>
-            <div class="site_input-group">
-              <input
-                type="checkbox"
-                name="products"
-                id="natural-gas-petroleum-products"
-                class="site_checkbox"
-              />
-              <label for="natural-gas-petroleum-products"
-                >Natural Gas & Petroleum Products</label
+              <label for="companyname" id="companyname-label"
+                >Company Name</label
               >
             </div>
+
             <div class="site_input-group">
               <input
-                type="checkbox"
-                name="products"
-                id="refined-products-petrochemicals"
-                class="site_checkbox"
+                type="email"
+                name="Email"
+                id="email"
+                class="site_input"
+                placeholder="Email"
+                aria-describedby="email-label"
               />
-              <label for="refined-products-petrochemicals"
-                >Refined Products & Petrochemicals</label
-              >
+              <label for="email" id="email-label">Email</label>
             </div>
+
             <div class="site_input-group">
               <input
-                type="checkbox"
-                name="products"
-                id="bitumen-chemicals"
-                class="site_checkbox"
+                type="tel"
+                name="Phone Number"
+                id="phone"
+                class="site_input"
+                placeholder="Phone Number"
+                aria-describedby="phone-label"
               />
-              <label for="bitumen-chemicals">Bitumen & Chemicals</label>
+              <label for="phone" id="phone-label">Phone Number</label>
             </div>
+
             <div class="site_input-group">
-              <input
-                type="checkbox"
-                name="products"
-                id="fertilizers"
-                class="site_checkbox"
-              />
-              <label for="fertilizers">Fertilizers</label>
+              <label for="country">Country</label>
+              <select name="Country" id="country" class="site_input">
+                <option value="">Select Country</option>
+                <option value="USA">USA</option>
+                <option value="Canada">Canada</option>
+                <option value="UK">UK</option>
+              </select>
             </div>
-            <div class="site_input-group">
-              <input
-                type="checkbox"
-                name="products"
-                id="edible-oils"
-                class="site_checkbox"
-              />
-              <label for="edible-oils">Edible Oils</label>
+          </div>
+
+          <div class="form_col">
+            <h4 class="text_light">Product(s) of Interest</h4>
+            <div class="products_lists-checkboxs">
+              <div class="site_checkbox-group">
+                <input
+                  type="checkbox"
+                  name="products"
+                  id="aviation-fuels"
+                  class="site_checkbox"
+                />
+                <label for="aviation-fuels">Aviation Fuels</label>
+              </div>
+              <div class="site_checkbox-group">
+                <input
+                  type="checkbox"
+                  name="products"
+                  id="diesel-gas-oils"
+                  class="site_checkbox"
+                />
+                <label for="diesel-gas-oils">Diesel & Gas Oils</label>
+              </div>
+              <div class="site_checkbox-group">
+                <input
+                  type="checkbox"
+                  name="products"
+                  id="heavy-fuel-oils"
+                  class="site_checkbox"
+                />
+                <label for="heavy-fuel-oils">Heavy Fuel Oils</label>
+              </div>
+              <div class="site_checkbox-group">
+                <input
+                  type="checkbox"
+                  name="products"
+                  id="natural-gas-petroleum-products"
+                  class="site_checkbox"
+                />
+                <label for="natural-gas-petroleum-products"
+                  >Natural Gas & Petroleum Products</label
+                >
+              </div>
+              <div class="site_checkbox-group">
+                <input
+                  type="checkbox"
+                  name="products"
+                  id="refined-products-petrochemicals"
+                  class="site_checkbox"
+                />
+                <label for="refined-products-petrochemicals"
+                  >Refined Products & Petrochemicals</label
+                >
+              </div>
+              <div class="site_checkbox-group">
+                <input
+                  type="checkbox"
+                  name="products"
+                  id="bitumen-chemicals"
+                  class="site_checkbox"
+                />
+                <label for="bitumen-chemicals">Bitumen & Chemicals</label>
+              </div>
+              <div class="site_checkbox-group">
+                <input
+                  type="checkbox"
+                  name="products"
+                  id="fertilizers"
+                  class="site_checkbox"
+                />
+                <label for="fertilizers">Fertilizers</label>
+              </div>
+              <div class="site_checkbox-group">
+                <input
+                  type="checkbox"
+                  name="products"
+                  id="edible-oils"
+                  class="site_checkbox"
+                />
+                <label for="edible-oils">Edible Oils</label>
+              </div>
+              <div class="site_checkbox-group">
+                <input
+                  type="checkbox"
+                  name="products"
+                  id="other"
+                  class="site_checkbox"
+                />
+                <label for="other">Other</label>
+              </div>
             </div>
-            <div class="site_input-group">
-              <input
-                type="checkbox"
-                name="products"
-                id="other"
-                class="site_checkbox"
-              />
-              <label for="other">Other</label>
+          </div>
+          <div class="form_col">
+            <h4 class="text_light">Additional Requirements/Comments</h4>
+            <div class="form_textarea">
+              <textarea
+                name="Message"
+                id="message"
+                class="site_textarea site_input"
+                placeholder="Your Message"
+                aria-describedby="message-label"
+              ></textarea>
+              <label for="message" id="message-label">Your Message</label>
             </div>
+          </div>
+          <div class="form_col form_contact-method">
+            <h4 class="text_light">Preferred Contact Method</h4>
+            <div class="contact_method-buttons site_flex">
+              <div class="site_checkbox-group">
+                <input
+                  type="radio"
+                  name="Email"
+                  id="Email"
+                  class="site_checkbox"
+                />
+                <label for="Email">Email</label>
+              </div>
+              <div class="site_checkbox-group">
+                <input
+                  type="radio"
+                  name="Phone"
+                  id="Phone"
+                  class="site_checkbox"
+                />
+                <label for="Phone">Phone</label>
+              </div>
+              <div class="site_checkbox-group">
+                <input
+                  type="radio"
+                  name="Either"
+                  id="Either"
+                  class="site_checkbox"
+                />
+                <label for="Either">Either</label>
+              </div>
+            </div>
+          </div>
+          <div class="form_col">
+            <button type="submit" class="primary_cta">SUBMIT</button>
           </div>
         </form>
       </section>
@@ -237,9 +288,15 @@
                 <div class="footer_input-area singup site_flex">
                   <input
                     type="email"
-                    class="footer_input"
+                    name="Enter your email address"
+                    id="email"
+                    class="site_input"
                     placeholder="Enter your email address"
+                    aria-describedby="email-label"
                   />
+                  <label for="email" id="email-label"
+                    >Enter your email address</label
+                  >
 
                   <button class="footer_btn primary_cta">singup</button>
                 </div>

@@ -33,12 +33,9 @@ p { font-size: clamp(16px, 2.3vw, 22px); }
 /*------------------------------
     Common Styles
 -----------------------*/
-/* Skeleton container styles */
     .skeleton-container { position: relative; display: flex; width: 100%; overflow: hidden; }
-/* Skeleton placeholder */
-      .skeleton { background: #f0f0f0; position: relative; overflow: hidden; }
-/* Shimmer animation for skeleton */
-      .skeleton::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(
+.skeleton { background: #f0f0f0; position: relative; overflow: hidden; }
+.skeleton::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(
           90deg,
           transparent,
           rgba(255, 255, 255, 0.4),
@@ -49,10 +46,8 @@ p { font-size: clamp(16px, 2.3vw, 22px); }
 100% { left: 100%; }
  }
 .simpleParallax { width: 100%; }
-/* Image styles */
-      .skeleton-img { display: none; width: 100%; height: auto; }
-/* Show image when loaded */
-      .skeleton-img.loaded { display: block; }
+.skeleton-img { display: none; width: 100%; height: auto; }
+.skeleton-img.loaded { display: block; }
 .text_light { color: var(--gray-color); }
 .text_monoSpaced { font-family: "Phonic Monospaced", monospace; font-size: 14px; color: var(--primary-color); }
 .primary_cta-outline { background-color: transparent; }
@@ -244,6 +239,7 @@ Youth Section Styles
 .page_body .header .header_navigations_links ul li a:hover { color: var(--light-black-color); }
 .page_body .header .cta { background-color: var(--text-highlight-color); }
 .page_body .site_container-full { max-width: 800px; }
+.tnc_content { padding: 0 30px; }
 /*-----------------------------
     Aside Bar Styles   
 -----------------------*/
@@ -263,6 +259,31 @@ Youth Section Styles
 .aside_backdrop.active { opacity: 1; visibility: visible; }
 .aside_close-menu { display: none; background: none; border: none; font-size: 24px; cursor: pointer; }
 /*------------------------------
+    Form Styles
+-----------------------*/
+.site_form { display: flex; justify-content: center; align-items: center; flex-direction: column; -ms-flex-direction: column; width: 100%; gap: 50px; flex-wrap: wrap; max-width: 900px; margin: 0 auto; }
+.site_input-groups { width: 100%; display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 15px; }
+.site_input-group { width: 100%; position: relative; display: flex; justify-content: center; align-items: center; flex: 33%; }
+.site_input-group .site_input { max-width: 100%; padding-top: 30px; }
+.site_input-group label { position: absolute; left: 20px; }
+.form_textarea label { position: absolute; left: 10px; top: 38px; transform: translateY(-50%); transition: all 0.3s ease; }
+.form_textarea { position: relative; }
+.form_textarea .site_input { max-width: 100%; }
+.products_lists-checkboxs { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; max-width: 900px; }
+.site_checkbox-group label { background-color: transparent; border: 1px solid #000; padding: 10px 15px; border-radius: 8px; display: block; width: fit-content; color: #000; cursor: pointer; transition: background-color 0.7s cubic-bezier(0.77, 0, 0.175, 1), color 0.7s cubic-bezier(0.77, 0, 0.175, 1) ; }
+.site_checkbox:checked + label { background-color: #000; color: #fff; }
+.site_checkbox:checked + label:hover { opacity: 0.8; }
+.site_checkbox { display: none; }
+.site_input-group label, .footer_input-area label { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 16px; color: #666; pointer-events: none; transition: all 0.3s ease; }
+.site_input:focus + label, .site_input:not(:placeholder-shown) + label { top: 20px; font-size: 12px; color: var(--gray-color); transform: translateY(-50%); }
+.site_input::placeholder { color: transparent; }
+.form_col { width: 100%; }
+.form_col .primary_cta { cursor: pointer; }
+.site_textarea { resize: vertical; font-family: "Lateral Standard", sans-serif; }
+.contact_method-buttons { gap: 15px; }
+.site_form h4 { margin-bottom: 15px; font-size: 20px; }
+.form_container { padding-top: 100px; }
+/*------------------------------
     Footer Styles
 -----------------------*/
 .footer_inner { padding: clamp(50px,5vw, 112px) 30px clamp(30px, 4vw, 60px); }
@@ -279,7 +300,7 @@ Youth Section Styles
 .footer_inner .footer_inner-row.site_flex { row-gap: clamp(40px, 12vw, 200px); }
 .footer_bottom-col.footer_bottom-left { text-align: left; }
 .footer_bottom-col.footer_bottom-right { text-align: right; gap:20px; justify-content: flex-end; }
-.footer_input,.site_input { padding: 20px 10px; border: 1px solid #000; border-radius: 5px; width: 100%; max-width: 500px; }
+.footer_input,.site_input { padding: 30px 10px 10px; border: 1px solid #000; border-radius: 5px; width: 100%; max-width: 500px; }
 .footer_input-area { gap: 20px; }
-.footer_input-area.singup.site_flex { flex-wrap: nowrap; margin-top: 20px; }
+.footer_input-area.singup.site_flex { flex-wrap: nowrap; margin-top: 20px; position: relative; }
 .footer_bottom-col.footer_bottom-left a img { max-width: clamp(120px, 30vw, 250px); margin: 0 auto; }
