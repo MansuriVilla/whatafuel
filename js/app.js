@@ -413,9 +413,13 @@ when they come into view using GSAP and ScrollTrigger
   asideNavigationSys();
 
   function initRadioButtons() {
-    const radioGroups = document.querySelectorAll(".site_checkbox-group");
+    const radioGroups = document.querySelectorAll(
+      ".contact_method-buttons .site_checkbox-group"
+    );
     if (!radioGroups.length) {
-      console.warn("No .site_checkbox-group elements found for radio buttons");
+      console.warn(
+        "No .site_checkbox-group elements found in .contact_method-buttons"
+      );
       return;
     }
 
@@ -424,7 +428,9 @@ when they come into view using GSAP and ScrollTrigger
       const label = group.querySelector("label");
 
       if (!input || !label) {
-        console.warn("Radio input or label missing in .site_checkbox-group");
+        console.warn(
+          "Radio input or label missing in .site_checkbox-group within .contact_method-buttons"
+        );
         return;
       }
 
@@ -444,6 +450,7 @@ when they come into view using GSAP and ScrollTrigger
       });
     });
   }
+
   initRadioButtons();
 
   var swiper = new Swiper(".journal_slider", {

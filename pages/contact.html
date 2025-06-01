@@ -85,8 +85,9 @@
                 class="site_input"
                 placeholder="Full Name"
                 aria-describedby="fullname-label"
+                required
               />
-              <label for="fullname" id="fullname-label">Full Name</label>
+              <label for="fullname" id="fullname-label">Full Name*</label>
             </div>
 
             <div class="site_input-group">
@@ -97,9 +98,10 @@
                 class="site_input"
                 placeholder="Company Name"
                 aria-describedby="companyname-label"
+                required
               />
               <label for="companyname" id="companyname-label"
-                >Company Name</label
+                >Company Name*</label
               >
             </div>
 
@@ -111,8 +113,9 @@
                 class="site_input"
                 placeholder="Email"
                 aria-describedby="email-label"
+                required
               />
-              <label for="email" id="email-label">Email</label>
+              <label for="email" id="email-label">Email*</label>
             </div>
 
             <div class="site_input-group">
@@ -123,8 +126,9 @@
                 class="site_input"
                 placeholder="Phone Number"
                 aria-describedby="phone-label"
+                required
               />
-              <label for="phone" id="phone-label">Phone Number</label>
+              <label for="phone" id="phone-label">Phone Number*</label>
             </div>
           </div>
 
@@ -237,29 +241,32 @@
               <div class="site_checkbox-group">
                 <input
                   type="radio"
-                  name="Email"
+                  name="contact_method"
                   id="Email"
                   class="site_checkbox"
+                  aria-describedby="email-label"
                 />
-                <label for="Email">Email</label>
+                <label for="Email" id="email-label">Email</label>
               </div>
               <div class="site_checkbox-group">
                 <input
                   type="radio"
-                  name="Phone"
+                  name="contact_method"
                   id="Phone"
                   class="site_checkbox"
+                  aria-describedby="phone-label"
                 />
-                <label for="Phone">Phone</label>
+                <label for="Phone" id="phone-label">Phone</label>
               </div>
               <div class="site_checkbox-group">
                 <input
                   type="radio"
-                  name="Either"
+                  name="contact_method"
                   id="Either"
                   class="site_checkbox"
+                  aria-describedby="either-label"
                 />
-                <label for="Either">Either</label>
+                <label for="Either" id="either-label">Either</label>
               </div>
             </div>
           </div>
