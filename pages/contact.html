@@ -75,7 +75,7 @@
         <span class="border-animation"></span>
       </section>
       <section class="tnc_content form_container w-100">
-        <form action="#" method="post" class="site_form">
+        <form action="#" method="post" class="site_form" id="contact-form">
           <div class="form_col site_input-groups">
             <div class="site_input-group">
               <input
@@ -85,7 +85,6 @@
                 class="site_input"
                 placeholder="Full Name"
                 aria-describedby="fullname-label"
-                required
               />
               <label for="fullname" id="fullname-label">Full Name*</label>
             </div>
@@ -98,7 +97,6 @@
                 class="site_input"
                 placeholder="Company Name"
                 aria-describedby="companyname-label"
-                required
               />
               <label for="companyname" id="companyname-label"
                 >Company Name*</label
@@ -113,7 +111,6 @@
                 class="site_input"
                 placeholder="Email"
                 aria-describedby="email-label"
-                required
               />
               <label for="email" id="email-label">Email*</label>
             </div>
@@ -126,9 +123,11 @@
                 class="site_input"
                 placeholder="Phone Number"
                 aria-describedby="phone-label"
-                required
               />
               <label for="phone" id="phone-label">Phone Number*</label>
+              <div class="error-message" id="phone-error">
+                Please enter your valid phone number.
+              </div>
             </div>
           </div>
 

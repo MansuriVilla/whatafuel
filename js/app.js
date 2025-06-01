@@ -453,6 +453,286 @@ when they come into view using GSAP and ScrollTrigger
 
   initRadioButtons();
 
+  function initFormValidation() {
+    const form = document.getElementById("contact-form");
+    if (!form) {
+      console.warn("Form with id 'contact-form' not found");
+      return;
+    }
+
+    // Select required text inputs by ID
+    const requiredInputIds = ["fullname", "companyname", "email", "phone"];
+    const inputs = requiredInputIds
+      .map((id) => form.querySelector(`#${id}`))
+      .filter(Boolean);
+
+    const radioContainer = form.querySelector(".contact_method-buttons");
+    const radioGroups = radioContainer
+      ? radioContainer.querySelectorAll(".site_checkbox-group")
+      : [];
+    const checkboxContainer = form.querySelector(".products_lists-checkboxs");
+    const checkboxes = checkboxContainer
+      ? checkboxContainer.querySelectorAll(".site_checkbox")
+      : [];
+
+    // Dynamically create error message elements if missing
+    const ensureErrorMessage = (parent, id, message) => {
+      let errorDiv = document.getElementById(id);
+      if (!errorDiv) {
+        errorDiv = document.createElement("div");
+        errorDiv.className = "error-message";
+        errorDiv.id = id;
+        errorDiv.textContent = message;
+        parent.appendChild(errorDiv); // Changed to append inside the parent
+      }
+      return errorDiv;
+    };
+
+    inputs.forEach((input) => {
+      const inputGroup = input.closest(".site_input-group");
+      if (inputGroup) {
+        ensureErrorMessage(
+          inputGroup,
+          `${input.id}-error`,
+          `Please enter your ${
+            input.id === "email"
+              ? "valid email address"
+              : input.id === "phone"
+              ? "valid phone number"
+              : input.id
+          }.`
+        );
+      }
+    });
+
+    if (checkboxContainer) {
+      ensureErrorMessage(
+        checkboxContainer,
+        "products-error",
+        "Please select at least one product."
+      );
+    }
+
+    if (radioContainer) {
+      ensureErrorMessage(
+        radioContainer,
+        "contact-method-error",
+        "Please select a contact method."
+      );
+    }
+
+    // Restrict phone input to valid characters in real-time
+    const phoneInput = form.querySelector("#phone");
+    console.log("Phone input element:", phoneInput);
+    if (phoneInput) {
+      phoneInput.addEventListener("input", (e) => {
+        console.log("Phone input changed:", e.target.value);
+        e.target.value = e.target.value.replace(/[^0-9+\s-]/g, "");
+        console.log("Cleaned phone input:", e.target.value);
+      });
+      phoneInput.addEventListener("paste", (e) => {
+        setTimeout(() => {
+          e.target.value = e.target.value.replace(/[^0-9+\s-]/g, "");
+          console.log("Cleaned pasted phone input:", e.target.value);
+        }, 0);
+      });
+    }
+
+    // Initialize ARIA states for radio buttons
+    if (radioGroups.length) {
+      radioGroups.forEach((group) => {
+        const input = group.querySelector(".site_checkbox");
+        const label = group.querySelector("label");
+        if (input && label) {
+          label.setAttribute("aria-checked", input.checked);
+          input.addEventListener("change", () => {
+            radioGroups.forEach((g) => {
+              const otherInput = g.querySelector(".site_checkbox");
+              const otherLabel = g.querySelector("label");
+              if (otherInput && otherLabel) {
+                otherLabel.setAttribute("aria-checked", otherInput.checked);
+              }
+            });
+            if (radioContainer) {
+              radioContainer.classList.remove("error");
+              radioContainer.removeAttribute("aria-invalid");
+              const errorMessage = document.getElementById(
+                "contact-method-error"
+              );
+              if (errorMessage) errorMessage.style.display = "none";
+            }
+          });
+        }
+      });
+    }
+
+    // Initialize ARIA states for checkboxes
+    if (checkboxes.length) {
+      checkboxes.forEach((checkbox) => {
+        const label = checkbox.nextElementSibling;
+        if (label && label.tagName === "LABEL") {
+          label.setAttribute("aria-checked", checkbox.checked);
+          checkbox.addEventListener("change", () => {
+            label.setAttribute("aria-checked", checkbox.checked);
+            if (
+              checkboxContainer &&
+              Array.from(checkboxes).some((cb) => cb.checked)
+            ) {
+              checkboxContainer.classList.remove("error");
+              checkboxContainer.removeAttribute("aria-invalid");
+              const errorMessage = document.getElementById("products-error");
+              if (errorMessage) errorMessage.style.display = "none";
+            }
+          });
+        }
+      });
+    }
+
+    // Form submission validation
+    form.addEventListener("submit", (e) => {
+      console.log("Submit button clicked");
+      e.preventDefault();
+      let isValid = true;
+      let firstInvalidElement = null;
+
+      // Validate required text inputs
+      inputs.forEach((input) => {
+        const inputGroup = input.closest(".site_input-group");
+        const errorMessage = inputGroup
+          ? document.getElementById(`${input.id}-error`)
+          : null;
+        console.log(`Validating ${input.id}:`, input.value.trim());
+
+        if (!input.value.trim()) {
+          isValid = false;
+          if (inputGroup) {
+            inputGroup.classList.add("error");
+            input.setAttribute("aria-invalid", "true");
+          }
+          if (errorMessage) {
+            errorMessage.style.display = "block";
+            console.log(`Showing error for ${input.id}`);
+          }
+          if (!firstInvalidElement) {
+            firstInvalidElement = input;
+          }
+        } else if (input.type === "email" && input.value.trim()) {
+          const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailPattern.test(input.value.trim())) {
+            isValid = false;
+            if (inputGroup) {
+              inputGroup.classList.add("error");
+              input.setAttribute("aria-invalid", "true");
+            }
+            if (errorMessage) {
+              errorMessage.textContent = "Please enter a valid email address.";
+              errorMessage.style.display = "block";
+            }
+            if (!firstInvalidElement) {
+              firstInvalidElement = input;
+            }
+          }
+        } else if (input.type === "tel" && input.value.trim()) {
+          const cleanedPhone = input.value.trim().replace(/[\s-]/g, "");
+          console.log("Cleaned phone for validation:", cleanedPhone);
+          const phonePattern = /^\+?\d{7,15}$/;
+          if (!phonePattern.test(cleanedPhone)) {
+            isValid = false;
+            if (inputGroup) {
+              inputGroup.classList.add("error");
+              input.setAttribute("aria-invalid", "true");
+            }
+            if (errorMessage) {
+              errorMessage.textContent =
+                "Please enter a valid phone number (7-15 digits, optional +).";
+              errorMessage.style.display = "block";
+            }
+            if (!firstInvalidElement) {
+              firstInvalidElement = input;
+            }
+          }
+        } else {
+          if (inputGroup) {
+            inputGroup.classList.remove("error");
+            input.removeAttribute("aria-invalid");
+          }
+          if (errorMessage) {
+            errorMessage.style.display = "none";
+          }
+        }
+      });
+
+      // Validate radio buttons
+      const isAnyRadioChecked =
+        radioGroups.length &&
+        Array.from(radioGroups).some((group) => {
+          const input = group.querySelector(".site_checkbox");
+          return input && input.checked;
+        });
+      console.log("Radio checked:", isAnyRadioChecked);
+
+      if (!isAnyRadioChecked) {
+        isValid = false;
+        if (radioContainer) {
+          radioContainer.classList.add("error");
+          radioContainer.setAttribute("aria-invalid", "true");
+          const errorMessage = document.getElementById("contact-method-error");
+          if (errorMessage) {
+            errorMessage.style.display = "block";
+            console.log("Showing radio error");
+            if (!firstInvalidElement) {
+              firstInvalidElement = errorMessage;
+            }
+          }
+        }
+      } else if (radioContainer) {
+        radioContainer.classList.remove("error");
+        radioContainer.removeAttribute("aria-invalid");
+        const errorMessage = document.getElementById("contact-method-error");
+        if (errorMessage) {
+          errorMessage.style.display = "none";
+        }
+      }
+
+      // Validate checkboxes
+      const isAnyCheckboxChecked =
+        checkboxes.length && Array.from(checkboxes).some((cb) => cb.checked);
+      console.log("Checkbox checked:", isAnyCheckboxChecked);
+
+      if (!isAnyCheckboxChecked) {
+        isValid = false;
+        if (checkboxContainer) {
+          checkboxContainer.classList.add("error");
+          checkboxContainer.setAttribute("aria-invalid", "true");
+          const errorMessage = document.getElementById("products-error");
+          if (errorMessage) {
+            errorMessage.style.display = "block";
+            console.log("Showing checkbox error");
+            if (!firstInvalidElement) {
+              firstInvalidElement = errorMessage;
+            }
+          }
+        }
+      } else if (checkboxContainer) {
+        checkboxContainer.classList.remove("error");
+        checkboxContainer.removeAttribute("aria-invalid");
+        const errorMessage = document.getElementById("products-error");
+        if (errorMessage) {
+          errorMessage.style.display = "none";
+        }
+      }
+
+      // Focus first valid element
+      if (!isValid && firstInvalidElement) {
+        firstInvalidElement.focus();
+      }
+
+      if (isValid) {
+        form.submit();
+      }
+    });
+  }
+  initFormValidation();
   var swiper = new Swiper(".journal_slider", {
     spaceBetween: 30,
     breakpoints: {
