@@ -289,7 +289,7 @@ when they come into view using GSAP and ScrollTrigger
       },
       {
         rootMargin: "-150px 0px -150px 0px",
-        threshold: 0.5,
+        threshold: 0.1,
       }
     );
 
@@ -733,6 +733,7 @@ when they come into view using GSAP and ScrollTrigger
     });
   }
   initFormValidation();
+
   var swiper = new Swiper(".journal_slider", {
     spaceBetween: 30,
     breakpoints: {

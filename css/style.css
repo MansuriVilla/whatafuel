@@ -195,7 +195,8 @@ Youth Section Styles
   .olympains_item-right
   .olympains_item-right--inner { border-radius: 0px clamp(20px, 3.2vw, 50px) clamp(20px, 3.2vw, 50px) 0px; }
 .has_list--style { row-gap: 12px; margin-left: 30px; flex: 1; }
-.has_list--style li { list-style: disc; }
+ul.has_list--style li { list-style: disc !important; }
+ol.has_list--style li { list-style: decimal; }
 .olympains_item-image { aspect-ratio: 1; object-fit: cover; }
 /*------------------------------
     Image Only Styles
@@ -248,7 +249,8 @@ Youth Section Styles
 .aside_left ul { position: sticky; top: 0; padding-top: 100px; display: flex; flex-direction: column; row-gap: 20px; }
 .aside_left ul li a.is_view { color: var(--text-highlight-color); }
 .aside_right { padding: 100px 0; display: flex; flex-direction: column; row-gap: 100px; }
-.procedure_section h2 { margin-bottom: 30px; }
+.procedure_section { display: flex; flex-direction: column; row-gap: 30px; max-width: 1080px; width: 100%; }
+.procedure_section h2 { margin-bottom: 20px; }
 .procedure_section.is_view h2 { color: var(--text-highlight-color); }
 .aside_offcanvas-menu { transition: transform 0.3s ease-in-out; }
 .aside_offcanvas-top { color: #000; display: flex; align-items: center; justify-content: space-between; flex-flow: revert; padding: 0 20px; margin-top: 120px; }
