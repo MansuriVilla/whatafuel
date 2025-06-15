@@ -454,9 +454,9 @@ when they come into view using GSAP and ScrollTrigger
   initRadioButtons();
 
   function initFormValidation() {
-    const form = document.getElementById("contact-form");
+    const form = document.getElementById("quoteForm");
     if (!form) {
-      console.warn("Form with id 'contact-form' not found");
+      console.warn("Form with id 'quoteForm' not found");
       return;
     }
 
