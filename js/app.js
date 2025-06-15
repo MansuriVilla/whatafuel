@@ -728,7 +728,46 @@ when they come into view using GSAP and ScrollTrigger
       }
 
       if (isValid) {
-        form.submit();
+        // Prepare form data
+        const formData = {
+          fullName: form.querySelector('#fullname').value,
+          companyName: form.querySelector('#companyname').value,
+          email: form.querySelector('#email').value,
+          phone: form.querySelector('#phone').value,
+          products: Array.from(checkboxes)
+            .filter(cb => cb.checked)
+            .map(cb => cb.nextElementSibling.textContent),
+          message: form.querySelector('#message').value,
+          contactMethod: Array.from(radioGroups)
+            .find(group => group.querySelector('.site_checkbox').checked)
+            ?.querySelector('label').textContent || ''
+        };
+
+        // Show loading state
+        const submitButton = form.querySelector('button[type="submit"]');
+        const originalButtonText = submitButton.textContent;
+        submitButton.textContent = 'Sending...';
+        submitButton.disabled = true;
+
+        // Send email using EmailJS
+        emailjs.send(
+          'YOUR_SERVICE_ID', // Replace with your EmailJS service ID
+          'YOUR_TEMPLATE_ID', // Replace with your EmailJS template ID
+          formData
+        )
+        .then(function(response) {
+          console.log('SUCCESS!', response.status, response.text);
+          alert('Thank you for your request. We will contact you shortly!');
+          form.reset();
+        })
+        .catch(function(error) {
+          console.log('FAILED...', error);
+          alert('There was an error sending your request. Please try again later.');
+        })
+        .finally(function() {
+          submitButton.textContent = originalButtonText;
+          submitButton.disabled = false;
+        });
       }
     });
   }
