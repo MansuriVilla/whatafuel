@@ -44,4 +44,5 @@
 .footer_bottom-col.footer_bottom-left { order: 1; width: 100%; text-align: center; }
 .footer_bottom-col { flex: 100%; }
 .footer_bottom-col.footer_bottom-right { justify-content: center; }
+.site_checkbox-group label { width: 100%; }
  }

@@ -60,11 +60,8 @@ p { font-size: clamp(16px, 2.3vw, 22px); }
 .site_flex-odd .flex_item:nth-child(odd) { flex-direction: row-reverse; }
 .site_flex-even .flex_item:nth-child(even) { flex-direction: row-reverse; }
 .site_grid { display: grid; }
-.grid_col-2 { grid-template-columns: repeat(
-    auto-fit,
-    minmax(clamp(280px, 30vw, 570px), 1fr)
-  ); }
-.grid_col-3 { grid-template-columns: repeat( auto-fit, minmax(clamp(280px, 25vw, 440px), 1fr) ); }
+.grid_col-2 { grid-template-columns: repeat( auto-fit, minmax(clamp(280px, 30vw, 570px), 1fr) ); }
+.grid_col-3 { grid-template-columns: repeat( auto-fit, minmax(clamp(230px, 25vw, 280px), 1fr) ); }
 .grid_col-4 { grid-template-columns: repeat(4, 1fr); }
 .grid_col-5 { grid-template-columns: repeat(5, 1fr); }
 .grid_col-6 { grid-template-columns: repeat(6, 1fr); }
@@ -147,8 +144,6 @@ a.cta:hover { background-color: #d8d8d8c9; color: var(--secondary-color); }
 video.hero_background { height: 100%; object-fit: cover; }
 .primary_cta-outline.has_active--effect::after { background-color: var(--white-color); }
 .introducing_ctas .primary_cta-outline.has_active--effect::after { background-color: var(--primary-color); }
-/* .hero_section_inner::after { content: ""; position: absolute; top: 0; left: 0; background: #00000010; height: 100%; width: 100%; z-index: -1; }
-*/
 .hero_section_background :is(picture, img) { height: 100%; object-fit: cover; object-position: center center; }
 /*------------------------------
     Main Styles
@@ -158,8 +153,7 @@ video.hero_background { height: 100%; object-fit: cover; }
 Youth Section Styles
 -----------------------*/
 .youth_inner { display: flex; justify-content: center; align-items: center; flex-direction: column; width: 100%; }
-.youth_top { width: 100%; /*  max-width: calc(100% - 15%); */
-  display: flex; justify-content: flex-start; align-items: flex-start; flex-direction: column; row-gap: 20px; text-align: start; }
+.youth_top { width: 100%; display: flex; justify-content: flex-start; align-items: flex-start; flex-direction: column; row-gap: 20px; text-align: start; }
 .youth_bottom,
 .youth_section { width: 100%; }
 /*------------------------------
@@ -272,7 +266,7 @@ ol.has_list--style li { list-style: decimal; }
 .form_textarea label { position: absolute; left: 10px; top: 38px; transform: translateY(-50%); transition: all 0.3s ease; }
 .form_textarea { position: relative; }
 .form_textarea .site_input { max-width: 100%; }
-.products_lists-checkboxs { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; max-width: 900px; }
+.products_lists-checkboxs { /* display: grid; grid-template-columns: repeat(3,1fr); */ gap: 20px; max-width: 900px; }
 .site_checkbox-group label { background-color: transparent; border: 1px solid #000; padding: 10px 15px; border-radius: 8px; display: block; width: fit-content; color: #000; cursor: pointer; transition: background-color 0.7s cubic-bezier(0.77, 0, 0.175, 1), color 0.7s cubic-bezier(0.77, 0, 0.175, 1) ; }
 .site_checkbox:checked + label { background-color: #000; color: #fff; }
 .site_checkbox:checked + label:hover { opacity: 0.8; }
