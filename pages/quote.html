@@ -308,16 +308,10 @@
         <form
           class="site_form"
           id="quoteForm"
-          action="https://formspree.io/f/your-form-id"
-          <!--
-          Replace
-          with
-          your
-          Formspree
-          endpoint
-          --
+          action="process-form.php"
+          method="post"
+          onsubmit="return handleSubmit(event)"
         >
-          method="post" onsubmit="return handleSubmit(event)" >
           <div class="form_col site_input-groups">
             <div class="site_input-group">
               <input
