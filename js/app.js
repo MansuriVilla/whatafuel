@@ -460,7 +460,6 @@ when they come into view using GSAP and ScrollTrigger
       return;
     }
 
-    // Select required text inputs by ID
     const requiredInputIds = ["fullname", "companyname", "email", "phone"];
     const inputs = requiredInputIds
       .map((id) => form.querySelector(`#${id}`))
@@ -470,12 +469,12 @@ when they come into view using GSAP and ScrollTrigger
     const radioGroups = radioContainer
       ? radioContainer.querySelectorAll(".site_checkbox-group")
       : [];
+
     const checkboxContainer = form.querySelector(".products_lists-checkboxs");
     const checkboxes = checkboxContainer
       ? checkboxContainer.querySelectorAll(".site_checkbox")
       : [];
 
-    // Dynamically create error message elements if missing
     const ensureErrorMessage = (parent, id, message) => {
       let errorDiv = document.getElementById(id);
       if (!errorDiv) {
@@ -483,7 +482,7 @@ when they come into view using GSAP and ScrollTrigger
         errorDiv.className = "error-message";
         errorDiv.id = id;
         errorDiv.textContent = message;
-        parent.appendChild(errorDiv); // Changed to append inside the parent
+        parent.appendChild(errorDiv);
       }
       return errorDiv;
     };
@@ -521,24 +520,18 @@ when they come into view using GSAP and ScrollTrigger
       );
     }
 
-    // Restrict phone input to valid characters in real-time
     const phoneInput = form.querySelector("#phone");
-    console.log("Phone input element:", phoneInput);
     if (phoneInput) {
       phoneInput.addEventListener("input", (e) => {
-        console.log("Phone input changed:", e.target.value);
         e.target.value = e.target.value.replace(/[^0-9+\s-]/g, "");
-        console.log("Cleaned phone input:", e.target.value);
       });
       phoneInput.addEventListener("paste", (e) => {
         setTimeout(() => {
           e.target.value = e.target.value.replace(/[^0-9+\s-]/g, "");
-          console.log("Cleaned pasted phone input:", e.target.value);
         }, 0);
       });
     }
 
-    // Initialize ARIA states for radio buttons
     if (radioGroups.length) {
       radioGroups.forEach((group) => {
         const input = group.querySelector(".site_checkbox");
@@ -566,7 +559,6 @@ when they come into view using GSAP and ScrollTrigger
       });
     }
 
-    // Initialize ARIA states for checkboxes
     if (checkboxes.length) {
       checkboxes.forEach((checkbox) => {
         const label = checkbox.nextElementSibling;
@@ -588,88 +580,62 @@ when they come into view using GSAP and ScrollTrigger
       });
     }
 
-    // Form submission validation
     form.addEventListener("submit", (e) => {
-      console.log("Submit button clicked");
       e.preventDefault();
       let isValid = true;
       let firstInvalidElement = null;
 
-      // Validate required text inputs
       inputs.forEach((input) => {
         const inputGroup = input.closest(".site_input-group");
         const errorMessage = inputGroup
           ? document.getElementById(`${input.id}-error`)
           : null;
-        console.log(`Validating ${input.id}:`, input.value.trim());
 
         if (!input.value.trim()) {
           isValid = false;
-          if (inputGroup) {
-            inputGroup.classList.add("error");
-            input.setAttribute("aria-invalid", "true");
-          }
-          if (errorMessage) {
-            errorMessage.style.display = "block";
-            console.log(`Showing error for ${input.id}`);
-          }
-          if (!firstInvalidElement) {
-            firstInvalidElement = input;
-          }
-        } else if (input.type === "email" && input.value.trim()) {
+          if (inputGroup) inputGroup.classList.add("error");
+          input.setAttribute("aria-invalid", "true");
+          if (errorMessage) errorMessage.style.display = "block";
+          if (!firstInvalidElement) firstInvalidElement = input;
+        } else if (input.type === "email") {
           const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
           if (!emailPattern.test(input.value.trim())) {
             isValid = false;
-            if (inputGroup) {
-              inputGroup.classList.add("error");
-              input.setAttribute("aria-invalid", "true");
-            }
+            if (inputGroup) inputGroup.classList.add("error");
+            input.setAttribute("aria-invalid", "true");
             if (errorMessage) {
               errorMessage.textContent = "Please enter a valid email address.";
               errorMessage.style.display = "block";
             }
-            if (!firstInvalidElement) {
-              firstInvalidElement = input;
-            }
+            if (!firstInvalidElement) firstInvalidElement = input;
           }
-        } else if (input.type === "tel" && input.value.trim()) {
+        } else if (input.type === "tel") {
           const cleanedPhone = input.value.trim().replace(/[\s-]/g, "");
-          console.log("Cleaned phone for validation:", cleanedPhone);
           const phonePattern = /^\+?\d{7,15}$/;
           if (!phonePattern.test(cleanedPhone)) {
             isValid = false;
-            if (inputGroup) {
-              inputGroup.classList.add("error");
-              input.setAttribute("aria-invalid", "true");
-            }
+            if (inputGroup) inputGroup.classList.add("error");
+            input.setAttribute("aria-invalid", "true");
             if (errorMessage) {
               errorMessage.textContent =
-                "Please enter a valid phone number (7-15 digits, optional +).";
+                "Please enter a valid phone number (7–15 digits, optional +).";
               errorMessage.style.display = "block";
             }
-            if (!firstInvalidElement) {
-              firstInvalidElement = input;
-            }
+            if (!firstInvalidElement) firstInvalidElement = input;
           }
         } else {
-          if (inputGroup) {
-            inputGroup.classList.remove("error");
-            input.removeAttribute("aria-invalid");
-          }
-          if (errorMessage) {
-            errorMessage.style.display = "none";
-          }
+          if (inputGroup) inputGroup.classList.remove("error");
+          input.removeAttribute("aria-invalid");
+          if (errorMessage) errorMessage.style.display = "none";
         }
       });
 
-      // Validate radio buttons
       const isAnyRadioChecked =
         radioGroups.length &&
         Array.from(radioGroups).some((group) => {
           const input = group.querySelector(".site_checkbox");
           return input && input.checked;
         });
-      console.log("Radio checked:", isAnyRadioChecked);
 
       if (!isAnyRadioChecked) {
         isValid = false;
@@ -679,25 +645,13 @@ when they come into view using GSAP and ScrollTrigger
           const errorMessage = document.getElementById("contact-method-error");
           if (errorMessage) {
             errorMessage.style.display = "block";
-            console.log("Showing radio error");
-            if (!firstInvalidElement) {
-              firstInvalidElement = errorMessage;
-            }
+            if (!firstInvalidElement) firstInvalidElement = errorMessage;
           }
-        }
-      } else if (radioContainer) {
-        radioContainer.classList.remove("error");
-        radioContainer.removeAttribute("aria-invalid");
-        const errorMessage = document.getElementById("contact-method-error");
-        if (errorMessage) {
-          errorMessage.style.display = "none";
         }
       }
 
-      // Validate checkboxes
       const isAnyCheckboxChecked =
         checkboxes.length && Array.from(checkboxes).some((cb) => cb.checked);
-      console.log("Checkbox checked:", isAnyCheckboxChecked);
 
       if (!isAnyCheckboxChecked) {
         isValid = false;
@@ -707,70 +661,54 @@ when they come into view using GSAP and ScrollTrigger
           const errorMessage = document.getElementById("products-error");
           if (errorMessage) {
             errorMessage.style.display = "block";
-            console.log("Showing checkbox error");
-            if (!firstInvalidElement) {
-              firstInvalidElement = errorMessage;
-            }
+            if (!firstInvalidElement) firstInvalidElement = errorMessage;
           }
-        }
-      } else if (checkboxContainer) {
-        checkboxContainer.classList.remove("error");
-        checkboxContainer.removeAttribute("aria-invalid");
-        const errorMessage = document.getElementById("products-error");
-        if (errorMessage) {
-          errorMessage.style.display = "none";
         }
       }
 
-      // Focus first valid element
       if (!isValid && firstInvalidElement) {
         firstInvalidElement.focus();
       }
 
       if (isValid) {
-        // Prepare form data
         const formData = {
-          fullName: form.querySelector('#fullname').value,
-          companyName: form.querySelector('#companyname').value,
-          email: form.querySelector('#email').value,
-          phone: form.querySelector('#phone').value,
+          fullName: form.querySelector("#fullname").value,
+          companyName: form.querySelector("#companyname").value,
+          email: form.querySelector("#email").value,
+          phone: form.querySelector("#phone").value,
           products: Array.from(checkboxes)
-            .filter(cb => cb.checked)
-            .map(cb => cb.nextElementSibling.textContent),
-          message: form.querySelector('#message').value,
-          contactMethod: Array.from(radioGroups)
-            .find(group => group.querySelector('.site_checkbox').checked)
-            ?.querySelector('label').textContent || ''
+            .filter((cb) => cb.checked)
+            .map((cb) => cb.nextElementSibling.textContent),
+          message: form.querySelector("#message").value,
+          contactMethod:
+            Array.from(radioGroups)
+              .find((group) => group.querySelector(".site_checkbox").checked)
+              ?.querySelector("label").textContent || "",
         };
 
-        // Show loading state
-        const submitButton = form.querySelector('button[type="submit"]');
-        const originalButtonText = submitButton.textContent;
-        submitButton.textContent = 'Sending...';
-        submitButton.disabled = true;
+        // 🔁 TODO: Submit formData via Fetch or XHR to your PHP endpoint
+        console.log("Submitting form data:", formData);
 
-        // Send email using EmailJS
-        emailjs.send(
-          'YOUR_SERVICE_ID', // Replace with your EmailJS service ID
-          'YOUR_TEMPLATE_ID', // Replace with your EmailJS template ID
-          formData
-        )
-        .then(function(response) {
-          console.log('SUCCESS!', response.status, response.text);
-          alert('Thank you for your request. We will contact you shortly!');
-          form.reset();
+        // Example (uncomment & replace with your actual endpoint):
+
+        fetch("process-form.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
         })
-        .catch(function(error) {
-          console.log('FAILED...', error);
-          alert('There was an error sending your request. Please try again later.');
-        })
-        .finally(function() {
-          submitButton.textContent = originalButtonText;
-          submitButton.disabled = false;
-        });
+          .then((response) => response.json())
+          .then((data) => {
+            alert(data.message || "Form submitted successfully!");
+            form.reset();
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            alert("There was an error. Please try again later.");
+          });
       }
     });
   }
+
   initFormValidation();
 
   var swiper = new Swiper(".journal_slider", {
