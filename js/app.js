@@ -465,11 +465,6 @@ when they come into view using GSAP and ScrollTrigger
       .map((id) => form.querySelector(`#${id}`))
       .filter(Boolean);
 
-    const radioContainer = form.querySelector(".contact_method-buttons");
-    const radioGroups = radioContainer
-      ? radioContainer.querySelectorAll(".site_checkbox-group")
-      : [];
-
     const checkboxContainer = form.querySelector(".products_lists-checkboxs");
     const checkboxes = checkboxContainer
       ? checkboxContainer.querySelectorAll(".site_checkbox")
@@ -512,14 +507,6 @@ when they come into view using GSAP and ScrollTrigger
       );
     }
 
-    if (radioContainer) {
-      ensureErrorMessage(
-        radioContainer,
-        "contact-method-error",
-        "Please select a contact method."
-      );
-    }
-
     const phoneInput = form.querySelector("#phone");
     if (phoneInput) {
       phoneInput.addEventListener("input", (e) => {
@@ -529,33 +516,6 @@ when they come into view using GSAP and ScrollTrigger
         setTimeout(() => {
           e.target.value = e.target.value.replace(/[^0-9+\s-]/g, "");
         }, 0);
-      });
-    }
-
-    if (radioGroups.length) {
-      radioGroups.forEach((group) => {
-        const input = group.querySelector(".site_checkbox");
-        const label = group.querySelector("label");
-        if (input && label) {
-          label.setAttribute("aria-checked", input.checked);
-          input.addEventListener("change", () => {
-            radioGroups.forEach((g) => {
-              const otherInput = g.querySelector(".site_checkbox");
-              const otherLabel = g.querySelector("label");
-              if (otherInput && otherLabel) {
-                otherLabel.setAttribute("aria-checked", otherInput.checked);
-              }
-            });
-            if (radioContainer) {
-              radioContainer.classList.remove("error");
-              radioContainer.removeAttribute("aria-invalid");
-              const errorMessage = document.getElementById(
-                "contact-method-error"
-              );
-              if (errorMessage) errorMessage.style.display = "none";
-            }
-          });
-        }
       });
     }
 
@@ -580,11 +540,19 @@ when they come into view using GSAP and ScrollTrigger
       });
     }
 
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
+    function handleSubmit(event) {
+      event.preventDefault();
+      const submitBtn = document.getElementById("submitBtn");
       let isValid = true;
       let firstInvalidElement = null;
 
+      // Clear previous errors
+      document.querySelectorAll(".error-message").forEach((error) => {
+        error.textContent = "";
+        error.style.display = "none";
+      });
+
+      // Validate inputs
       inputs.forEach((input) => {
         const inputGroup = input.closest(".site_input-group");
         const errorMessage = inputGroup
@@ -595,7 +563,16 @@ when they come into view using GSAP and ScrollTrigger
           isValid = false;
           if (inputGroup) inputGroup.classList.add("error");
           input.setAttribute("aria-invalid", "true");
-          if (errorMessage) errorMessage.style.display = "block";
+          if (errorMessage) {
+            errorMessage.textContent = `Please enter your ${
+              input.id === "email"
+                ? "valid email address"
+                : input.id === "phone"
+                ? "valid phone number"
+                : input.id
+            }.`;
+            errorMessage.style.display = "block";
+          }
           if (!firstInvalidElement) firstInvalidElement = input;
         } else if (input.type === "email") {
           const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -630,26 +607,7 @@ when they come into view using GSAP and ScrollTrigger
         }
       });
 
-      const isAnyRadioChecked =
-        radioGroups.length &&
-        Array.from(radioGroups).some((group) => {
-          const input = group.querySelector(".site_checkbox");
-          return input && input.checked;
-        });
-
-      if (!isAnyRadioChecked) {
-        isValid = false;
-        if (radioContainer) {
-          radioContainer.classList.add("error");
-          radioContainer.setAttribute("aria-invalid", "true");
-          const errorMessage = document.getElementById("contact-method-error");
-          if (errorMessage) {
-            errorMessage.style.display = "block";
-            if (!firstInvalidElement) firstInvalidElement = errorMessage;
-          }
-        }
-      }
-
+      // Validate checkboxes
       const isAnyCheckboxChecked =
         checkboxes.length && Array.from(checkboxes).some((cb) => cb.checked);
 
@@ -660,6 +618,7 @@ when they come into view using GSAP and ScrollTrigger
           checkboxContainer.setAttribute("aria-invalid", "true");
           const errorMessage = document.getElementById("products-error");
           if (errorMessage) {
+            errorMessage.textContent = "Please select at least one product.";
             errorMessage.style.display = "block";
             if (!firstInvalidElement) firstInvalidElement = errorMessage;
           }
@@ -668,45 +627,48 @@ when they come into view using GSAP and ScrollTrigger
 
       if (!isValid && firstInvalidElement) {
         firstInvalidElement.focus();
+        return false;
       }
 
-      if (isValid) {
-        const formData = {
-          fullName: form.querySelector("#fullname").value,
-          companyName: form.querySelector("#companyname").value,
-          email: form.querySelector("#email").value,
-          phone: form.querySelector("#phone").value,
-          products: Array.from(checkboxes)
-            .filter((cb) => cb.checked)
-            .map((cb) => cb.nextElementSibling.textContent),
-          message: form.querySelector("#message").value,
-          contactMethod:
-            Array.from(radioGroups)
-              .find((group) => group.querySelector(".site_checkbox").checked)
-              ?.querySelector("label").textContent || "",
-        };
+      // Submit form data to Formspree
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Sending...";
 
-        // 🔁 TODO: Submit formData via Fetch or XHR to your PHP endpoint
-        console.log("Submitting form data:", formData);
-
-        // Example (uncomment & replace with your actual endpoint):
-
-        fetch("process-form.php", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            alert(data.message || "Form submitted successfully!");
+      fetch(form.action, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { Accept: "application/json" },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.ok) {
+            alert("Quote request sent successfully!");
             form.reset();
-          })
-          .catch((error) => {
-            console.error("Error:", error);
-            alert("There was an error. Please try again later.");
-          });
-      }
-    });
+            document.querySelectorAll(".error-message").forEach((error) => {
+              error.textContent = "";
+              error.style.display = "none";
+            });
+            document.querySelectorAll(".site_input-group").forEach((group) => {
+              group.classList.remove("error");
+            });
+            checkboxContainer.classList.remove("error");
+            checkboxContainer.removeAttribute("aria-invalid");
+          } else {
+            throw new Error(data.error || "Failed to send quote request");
+          }
+        })
+        .catch((error) => {
+          alert(error.message);
+        })
+        .finally(() => {
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Send Quote Request";
+        });
+
+      return false;
+    }
+
+    form.addEventListener("submit", handleSubmit);
   }
 
   initFormValidation();

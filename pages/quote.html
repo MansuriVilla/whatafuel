@@ -129,7 +129,7 @@
         </p>
         <span class="border-animation"></span>
       </section>
-      <section class="tnc_content form_container w-100">
+      <!-- <section class="tnc_content form_container w-100">
         <form
           class="site_form"
           id="quoteForm"
@@ -303,9 +303,207 @@
             <button type="submit" class="cta" id="submitBtn">Send Quote Request</button>
           </div>
         </form>
+      </section> -->
+      <section class="tnc_content form_container w-100">
+        <form
+          class="site_form"
+          id="quoteForm"
+          action="https://formspree.io/f/your-form-id"
+          <!--
+          Replace
+          with
+          your
+          Formspree
+          endpoint
+          --
+        >
+          method="post" onsubmit="return handleSubmit(event)" >
+          <div class="form_col site_input-groups">
+            <div class="site_input-group">
+              <input
+                type="text"
+                name="fullName"
+                id="fullname"
+                class="site_input"
+                placeholder="Full Name"
+                aria-describedby="fullname-label fullname-error"
+                required
+              />
+              <label for="fullname" id="fullname-label">Full Name*</label>
+              <div class="error-message" id="fullname-error"></div>
+            </div>
+
+            <div class="site_input-group">
+              <input
+                type="text"
+                name="companyName"
+                id="companyname"
+                class="site_input"
+                placeholder="Company Name"
+                aria-describedby="companyname-label companyname-error"
+                required
+              />
+              <label for="companyname" id="companyname-label"
+                >Company Name*</label
+              >
+              <div class="error-message" id="companyname-error"></div>
+            </div>
+
+            <div class="site_input-group">
+              <input
+                type="email"
+                name="email"
+                id="email"
+                class="site_input"
+                placeholder="Email"
+                aria-describedby="email-label email-error"
+                required
+              />
+              <label for="email" id="email-label">Email*</label>
+              <div class="error-message" id="email-error"></div>
+            </div>
+
+            <div class="site_input-group">
+              <input
+                type="tel"
+                name="phone"
+                id="phone"
+                class="site_input"
+                placeholder="Phone Number"
+                aria-describedby="phone-label phone-error"
+                required
+              />
+              <label for="phone" id="phone-label">Phone Number*</label>
+              <div class="error-message" id="phone-error"></div>
+            </div>
+          </div>
+
+          <div class="form_col">
+            <h4 class="text_light">Product(s) of Interest*</h4>
+            <div
+              class="products_lists-checkboxs site_grid grid_col-3"
+              role="group"
+              aria-labelledby="products-label"
+            >
+              <div class="site_checkbox-group">
+                <input
+                  type="checkbox"
+                  name="products[]"
+                  id="aviation-fuels"
+                  class="site_checkbox"
+                  value="Aviation Fuels"
+                />
+                <label for="aviation-fuels">Aviation Fuels</label>
+              </div>
+              <div class="site_checkbox-group">
+                <input
+                  type="checkbox"
+                  name="products[]"
+                  id="diesel-gas-oils"
+                  class="site_checkbox"
+                  value="Diesel & Gas Oils"
+                />
+                <label for="diesel-gas-oils">Diesel & Gas Oils</label>
+              </div>
+              <div class="site_checkbox-group">
+                <input
+                  type="checkbox"
+                  name="products[]"
+                  id="heavy-fuel-oils"
+                  class="site_checkbox"
+                  value="Heavy Fuel Oils"
+                />
+                <label for="heavy-fuel-oils">Heavy Fuel Oils</label>
+              </div>
+              <div class="site_checkbox-group">
+                <input
+                  type="checkbox"
+                  name="products[]"
+                  id="natural-gas-petroleum-products"
+                  class="site_checkbox"
+                  value="Natural Gas & Petroleum Products"
+                />
+                <label for="natural-gas-petroleum-products"
+                  >Natural Gas & Petroleum Products</label
+                >
+              </div>
+              <div class="site_checkbox-group">
+                <input
+                  type="checkbox"
+                  name="products[]"
+                  id="refined-products-petrochemicals"
+                  class="site_checkbox"
+                  value="Refined Products & Petrochemicals"
+                />
+                <label for="refined-products-petrochemicals"
+                  >Refined Products & Petrochemicals</label
+                >
+              </div>
+              <div class="site_checkbox-group">
+                <input
+                  type="checkbox"
+                  name="products[]"
+                  id="bitumen-chemicals"
+                  class="site_checkbox"
+                  value="Bitumen & Chemicals"
+                />
+                <label for="bitumen-chemicals">Bitumen & Chemicals</label>
+              </div>
+              <div class="site_checkbox-group">
+                <input
+                  type="checkbox"
+                  name="products[]"
+                  id="fertilizers"
+                  class="site_checkbox"
+                  value="Fertilizers"
+                />
+                <label for="fertilizers">Fertilizers</label>
+              </div>
+              <div class="site_checkbox-group">
+                <input
+                  type="checkbox"
+                  name="products[]"
+                  id="edible-oils"
+                  class="site_checkbox"
+                  value="Edible Oils"
+                />
+                <label for="edible-oils">Edible Oils</label>
+              </div>
+              <div class="site_checkbox-group">
+                <input
+                  type="checkbox"
+                  name="products[]"
+                  id="other"
+                  class="site_checkbox"
+                  value="Other"
+                />
+                <label for="other">Other</label>
+              </div>
+              <div class="error-message" id="products-error"></div>
+            </div>
+          </div>
+          <div class="form_col">
+            <h4 class="text_light">Additional Requirements/Comments</h4>
+            <div class="form_textarea">
+              <textarea
+                name="message"
+                id="message"
+                class="site_textarea site_input"
+                placeholder="Your Message"
+                aria-describedby="message-label"
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="form_col">
+            <button type="submit" class="cta" id="submitBtn">
+              Send Quote Request
+            </button>
+          </div>
+        </form>
       </section>
 
-      <script>
+      <!-- <script>
         function handleSubmit(event) {
           event.preventDefault();
           
@@ -389,7 +587,7 @@
           
           return isValid;
         }
-      </script>
+      </script> -->
       <footer class="w-100">
         <div class="footer_inner">
           <div class="footer_inner-row site_flex">
